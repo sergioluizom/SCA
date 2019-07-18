@@ -1,10 +1,10 @@
 ﻿using SCA.Infraestrutura;
+using SCA.Model;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
-namespace SCA.Repository
+namespace SCA.Repository.Implementation
 {
     public class AreaRepository
     {
@@ -25,6 +25,21 @@ namespace SCA.Repository
                 throw ex;
             }
             return "ok";
+        }
+
+
+        public async Task<Area> Get()
+        {
+            try
+            {
+                var areas = await this.context.Areas.FindAsync<Area>(c => c.Nome == "Teste");
+               return await areas.FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return new Area();
         }
     }
 }

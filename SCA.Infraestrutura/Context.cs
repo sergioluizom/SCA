@@ -13,7 +13,14 @@ namespace SCA.Infraestrutura
         //public Context(IConfiguration configuration)
         public Context()
         {
-            _database = DatabaseFactory("mongodb://userscadev:userscadev1@ds337985.mlab.com:37985/heroku_386b1s1k", "scadev");
+            _database = DatabaseFactory("mongodb://application:sergio9205@ds337985.mlab.com:37985/heroku_386b1s1k", "heroku_386b1s1k");
+
+
+            //var credential = MongoCredential.CreateCredential("scadev", "application", "sergio9205");
+            //string connectstring1 = "mongodb://application:sergio9205@ds337985.mlab.com:37985/heroku_386b1s1k";
+            //MongoClient client = new MongoClient(connectstring1);
+            //var db = client.GetDatabase("scadev");
+            //db.GetCollection<object>
             RegisterClassMap();
         }
 

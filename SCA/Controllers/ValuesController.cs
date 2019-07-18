@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SCA.Model;
 using SCA.Repository;
+using SCA.Repository.Implementation;
 
 namespace SCA.Controllers
 {
@@ -22,6 +24,14 @@ namespace SCA.Controllers
             AreaRepository areaRepository = new AreaRepository(new Infraestrutura.Context()) ;
             areaRepository.Teste();
             return new string[] { "value1", "value2" };
+        }
+
+        [HttpGet]
+        [Route("area")]
+        public ActionResult<Area> GetArea()
+        {
+            AreaRepository areaRepository = new AreaRepository(new Infraestrutura.Context());
+            return areaRepository.Get().GetAwaiter().GetResult();
         }
 
         // GET api/values/5

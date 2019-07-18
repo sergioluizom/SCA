@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SCA.Repository;
 
 namespace SCA.Controllers
 {
@@ -18,6 +19,8 @@ namespace SCA.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            AreaRepository areaRepository = new AreaRepository(new Infraestrutura.Context()) ;
+            areaRepository.Teste();
             return new string[] { "value1", "value2" };
         }
 

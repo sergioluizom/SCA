@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
+using SCA.Infraestrutura;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SCA
@@ -30,7 +31,7 @@ namespace SCA
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddSingleton<Context>();
             services.AddSwaggerGen(options =>
             {
                 var serviceProvider = services.BuildServiceProvider();

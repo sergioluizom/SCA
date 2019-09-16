@@ -14,17 +14,11 @@ namespace SCA.Infraestrutura
         public Context()
         {
             _database = DatabaseFactory("mongodb://application:sergio9205@ds337985.mlab.com:37985/heroku_386b1s1k", "heroku_386b1s1k");
-
-
-            //var credential = MongoCredential.CreateCredential("scadev", "application", "sergio9205");
-            //string connectstring1 = "mongodb://application:sergio9205@ds337985.mlab.com:37985/heroku_386b1s1k";
-            //MongoClient client = new MongoClient(connectstring1);
-            //var db = client.GetDatabase("scadev");
-            //db.GetCollection<object>
             RegisterClassMap();
         }
 
         public IMongoCollection<Area> Areas => _database.GetCollection<Area>(nameof(Areas).ToLower());
+        public IMongoCollection<User> Users => _database.GetCollection<User>(nameof(Users).ToLower());
 
         private static IMongoDatabase DatabaseFactory(string connectionString, string databaseName)
         {
@@ -39,6 +33,12 @@ namespace SCA.Infraestrutura
         private static void RegisterClassMap()
         {
             BsonClassMap.RegisterClassMap<Area>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+
+            BsonClassMap.RegisterClassMap<User>(cm =>
             {
                 cm.AutoMap();
                 cm.SetIgnoreExtraElements(true);

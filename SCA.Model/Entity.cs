@@ -1,10 +1,13 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace SCA.Model
 {
     public class Entity
     {
+        [BsonIgnore]
         private string _id;
+        [BsonId]
         public string Id
         {
             get

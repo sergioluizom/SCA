@@ -1,8 +1,8 @@
-﻿using SCA.Infraestrutura;
+﻿using MongoDB.Driver;
+using SCA.Infraestrutura;
 using SCA.Model;
 using System;
 using System.Threading.Tasks;
-using MongoDB.Driver;
 
 namespace SCA.Repository.Implementation
 {
@@ -18,7 +18,12 @@ namespace SCA.Repository.Implementation
         {
             try
             {
-                await this.context.Areas.InsertOneAsync(new Model.Area() { Nome = "Teste" });
+                await this.context.Users.InsertOneAsync(new Model.User()
+                {
+                    Name = "Teste"
+                });
+
+
             }
             catch (Exception ex)
             {
@@ -33,7 +38,7 @@ namespace SCA.Repository.Implementation
             try
             {
                 var areas = await this.context.Areas.FindAsync<Area>(c => c.Nome == "Teste");
-               return await areas.FirstOrDefaultAsync();
+                return await areas.FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {

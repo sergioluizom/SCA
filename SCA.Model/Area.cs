@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using FluentValidation;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 
 namespace SCA.Model
@@ -16,5 +17,13 @@ namespace SCA.Model
         public int? MyProperty { get; set; }
         [BsonIgnoreIfNull]
         public string MyProperty2 { get; set; }
+    }
+
+    public class AreaValidator : AbstractValidator<Area>
+    {
+        public AreaValidator()
+        {
+            RuleFor(x => x.Nome).NotEmpty();
+        }
     }
 }

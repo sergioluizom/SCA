@@ -1,12 +1,13 @@
 ﻿using MongoDB.Driver;
 using SCA.Infraestrutura;
 using SCA.Model;
+using SCA.Repository.Interfaces;
 using System;
 using System.Threading.Tasks;
 
 namespace SCA.Repository.Implementation
 {
-    public class AreaRepository
+    public class AreaRepository : IAreaRepository
     {
         private readonly Context context;
         public AreaRepository(Context context)
@@ -14,16 +15,11 @@ namespace SCA.Repository.Implementation
             this.context = context;
         }
 
-        public async Task<string> Teste()
+        public async Task<string> Teste(Area area)
         {
             try
             {
-                await this.context.Users.InsertOneAsync(new Model.User()
-                {
-                    Name = "Teste"
-                });
-
-
+                await this.context.Areas.InsertOneAsync(area);
             }
             catch (Exception ex)
             {

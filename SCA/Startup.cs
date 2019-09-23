@@ -13,7 +13,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
+using SCA.ApplicationService.Implementation;
+using SCA.ApplicationService.Interfaces;
 using SCA.Infraestrutura;
+using SCA.Repository.Implementation;
+using SCA.Repository.Interfaces;
+using SCA.Service.Implementation;
+using SCA.Service.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SCA
@@ -32,6 +38,7 @@ namespace SCA
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<Context>();
+            RegisterServices(services);
             services.AddSwaggerGen(options =>
             {
                 var serviceProvider = services.BuildServiceProvider();
@@ -63,6 +70,13 @@ namespace SCA
 
         }
 
+        private void RegisterServices(IServiceCollection services)
+        {
+            services.AddTransient<IAreaRepository, AreaRepository>();
+            services.AddTransient<IAreaService, AreaService>();
+            services.AddTransient<IAreaAppService, AreaAppService>();
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -85,10 +99,8 @@ namespace SCA
             });
         }
 
-        private static string XmlCommentsFilePath
-        {
-            get
-            {
+        private static string XmlCommentsFilePath {
+            get {
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
                 var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
                 return Path.Combine(basePath, fileName);

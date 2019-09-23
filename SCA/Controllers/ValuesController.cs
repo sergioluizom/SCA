@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using SCA.ApplicationService.Interfaces;
 using SCA.Model;
-using SCA.Repository;
 using SCA.Repository.Implementation;
+using System.Collections.Generic;
 
 namespace SCA.Controllers
 {
@@ -13,6 +10,12 @@ namespace SCA.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private IAreaAppService areaAppService;
+        public ValuesController(IAreaAppService areaAppService)
+        {
+            this.areaAppService = areaAppService;
+        }
+
         // GET api/values
         /// <summary>
         /// Teste
@@ -21,8 +24,7 @@ namespace SCA.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            AreaRepository areaRepository = new AreaRepository(new Infraestrutura.Context()) ;
-            areaRepository.Teste();
+            areaAppService.Teste();
             return new string[] { "value1", "value2" };
         }
 

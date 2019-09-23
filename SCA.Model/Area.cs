@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace SCA.Model
 {
+    //https://fluentvalidation.net/start
     public class Area : Entity
     {
         public string Nome { get; set; }
@@ -23,7 +24,7 @@ namespace SCA.Model
     {
         public AreaValidator()
         {
-            RuleFor(x => x.Nome).NotEmpty();
+            RuleFor(x => x.Nome).NotEmpty().WithMessage("É obrigatório informar o Nome");
         }
     }
 }

@@ -50,17 +50,14 @@ namespace SCA
                     Title = "SCA.API",
                     Description = "Aplicação SCA",
                 });
-
-                if (!environment.IsDevelopment())
+                
+                options.AddSecurityDefinition(_configuration["keyName"], new ApiKeyScheme
                 {
-                    options.AddSecurityDefinition(_configuration["KeyHandler:key"], new ApiKeyScheme
-                    {
-                        Description = _configuration["KeyHandler:value"],
-                        Name = _configuration["KeyHandler:key"],
-                        In = "header"
-                    });
-                    options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> { { _configuration["KeyHandler:key"], new string[] { } } });
-                }
+                    Description = _configuration["keyValue"],
+                    Name = _configuration["keyName"],                    
+                    In = "header"
+                });
+                options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> { { _configuration["keyName"], new string[] { } } });
 
                 options.IncludeXmlComments(XmlCommentsFilePath);
 

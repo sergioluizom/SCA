@@ -5,17 +5,19 @@ VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.API", "SCA\SCA.API.csproj", "{D1610ED8-CD01-4A3B-A983-F7BB47CA2CEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.Repository", "SCA.Repository\SCA.Repository.csproj", "{E3A83B86-6092-4107-B5A9-790CA0812290}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Repository", "SCA.Repository\SCA.Repository.csproj", "{E3A83B86-6092-4107-B5A9-790CA0812290}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.Model", "SCA.Model\SCA.Model.csproj", "{A7071035-F44D-4C50-87D0-EAD38F905179}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Model", "SCA.Model\SCA.Model.csproj", "{A7071035-F44D-4C50-87D0-EAD38F905179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.ViewModel", "SCA.ViewModel\SCA.ViewModel.csproj", "{4618345F-F287-446A-B359-8BA31EAE363A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.ViewModel", "SCA.ViewModel\SCA.ViewModel.csproj", "{4618345F-F287-446A-B359-8BA31EAE363A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.ApplicationService", "SCA.ApplicationService\SCA.ApplicationService.csproj", "{741477A9-483B-4C17-B1C5-FA8244173A34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.ApplicationService", "SCA.ApplicationService\SCA.ApplicationService.csproj", "{741477A9-483B-4C17-B1C5-FA8244173A34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.Service", "SCA.Service\SCA.Service.csproj", "{2D265AC3-8E8F-408D-BF9F-4C6ABC7955BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Service", "SCA.Service\SCA.Service.csproj", "{2D265AC3-8E8F-408D-BF9F-4C6ABC7955BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.Infraestrutura", "SCA.Infraestrutura\SCA.Infraestrutura.csproj", "{0311BE8F-8652-468E-A8AD-F6D6D27C61F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Infraestrutura", "SCA.Infraestrutura\SCA.Infraestrutura.csproj", "{0311BE8F-8652-468E-A8AD-F6D6D27C61F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.Validation", "SCA.Validation\SCA.Validation.csproj", "{FC3C448E-BA72-4436-B65B-5463F2F23A54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{0311BE8F-8652-468E-A8AD-F6D6D27C61F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0311BE8F-8652-468E-A8AD-F6D6D27C61F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0311BE8F-8652-468E-A8AD-F6D6D27C61F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC3C448E-BA72-4436-B65B-5463F2F23A54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC3C448E-BA72-4436-B65B-5463F2F23A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC3C448E-BA72-4436-B65B-5463F2F23A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC3C448E-BA72-4436-B65B-5463F2F23A54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

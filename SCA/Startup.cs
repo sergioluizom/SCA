@@ -16,6 +16,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using SCA.ApplicationService.Implementation;
 using SCA.ApplicationService.Interfaces;
 using SCA.Infraestrutura;
+using SCA.Infraestrutura.Middleware;
 using SCA.Repository.Implementation;
 using SCA.Repository.Interfaces;
 using SCA.Service.Implementation;
@@ -50,11 +51,11 @@ namespace SCA
                     Title = "SCA.API",
                     Description = "Aplicação SCA",
                 });
-                
+
                 options.AddSecurityDefinition(_configuration["keyName"], new ApiKeyScheme
                 {
                     Description = _configuration["keyValue"],
-                    Name = _configuration["keyName"],                    
+                    Name = _configuration["keyName"],
                     In = "header"
                 });
                 options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> { { _configuration["keyName"], new string[] { } } });
@@ -87,13 +88,14 @@ namespace SCA
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc();            
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
                 string basePath = string.IsNullOrWhiteSpace(options.RoutePrefix) ? "." : "..";
                 options.SwaggerEndpoint($"{basePath}/swagger/v1.0/swagger.json", "SCA.API");
             });
+            app.UseMiddleware<KeyIdMiddleware>();
         }
 
         private static string XmlCommentsFilePath {

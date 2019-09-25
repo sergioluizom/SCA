@@ -14,7 +14,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "keyName": "SCA API",
+        "keyName": "SCA_API",
         "keyValue": "8PWXRe3djyDa7ttHfG-vQm8epNtyoRMJFEwvK",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -18,6 +18,9 @@ using Newtonsoft.Json;
 using SCA.ApplicationService.Implementation;
 using SCA.ApplicationService.Interfaces;
 using SCA.Infraestrutura;
+using SCA.Infraestrutura.Filter;
+using SCA.Infraestrutura.Implementation;
+using SCA.Infraestrutura.Interfaces;
 using SCA.Infraestrutura.Middleware;
 using SCA.Repository.Implementation;
 using SCA.Repository.Interfaces;
@@ -46,7 +49,7 @@ namespace SCA
                 options.SerializerSettings.Formatting = Formatting.Indented;
             });
             services.AddSingleton<Context>();
-            
+
             services.AddSwaggerGen(options =>
             {
                 var serviceProvider = services.BuildServiceProvider();
@@ -67,6 +70,8 @@ namespace SCA
                 });
                 options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> { { "apiKey", new string[] { } } });
 
+                options.OperationFilter<AddAntiCsrfHeaderOperationFilter>();
+
                 options.IncludeXmlComments(XmlCommentsFilePath);
 
                 // Define que cada objeto do swagger possua o nome completo para evitar conflitos
@@ -79,9 +84,10 @@ namespace SCA
         {
             services.AddSingleton(_configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IAntiCSRFService, AntiCSRFService>();
             services.AddTransient<IAreaRepository, AreaRepository>();
             services.AddTransient<IAreaService, AreaService>();
-            services.AddTransient<IAreaAppService, AreaAppService>();            
+            services.AddTransient<IAreaAppService, AreaAppService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,6 +107,8 @@ namespace SCA
                 string basePath = string.IsNullOrWhiteSpace(options.RoutePrefix) ? "." : "..";
                 options.SwaggerEndpoint($"{basePath}/swagger/v1.0/swagger.json", "SCA API");
             });
+
+            app.UseMiddleware<AntiCSRFMiddleware>();
             app.UseMiddleware<KeyIdMiddleware>();
             app.UseMvc();
         }

@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 
-namespace SCA.Model
+namespace SCA.Model.Entities
 {
     //https://fluentvalidation.net/start
     public class Area : Entity

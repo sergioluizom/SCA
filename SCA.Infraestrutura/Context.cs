@@ -1,7 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using MongoDB.Bson.Serialization;
+﻿using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using SCA.Model;
+using SCA.Model.Entities;
 using System.Security.Authentication;
 
 namespace SCA.Infraestrutura

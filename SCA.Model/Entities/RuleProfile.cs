@@ -1,4 +1,4 @@
-﻿namespace SCA.Model
+﻿namespace SCA.Model.Entities
 {
     public class RuleProfile : Entity
     {

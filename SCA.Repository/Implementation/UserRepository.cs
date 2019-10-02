@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace SCA.Repository.Implementation
 {
-    public class AreaRepository : IAreaRepository
+    public class UserRepository : IUserRepository
     {
         private readonly Context context;
-        public AreaRepository(Context context)
+        public UserRepository(Context context)
         {
             this.context = context;
         }
 
-        public async Task<string> Teste(Area area)
+        public async Task<string> Teste(User user)
         {
             try
             {
-                await this.context.Areas.InsertOneAsync(area);
+                await this.context.Users.InsertOneAsync(user);
             }
             catch (Exception ex)
             {
@@ -29,18 +29,29 @@ namespace SCA.Repository.Implementation
         }
 
 
-        public async Task<Area> Get()
+        public async Task<User> Get()
         {
             try
             {
-                var areas = await this.context.Areas.FindAsync<Area>(c => c.Nome == "Teste");
+                var areas = await this.context.Users.FindAsync<User>(c => c.Name == "Teste");
                 return await areas.FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
                 throw ex;
+            }            
+        }
+
+        public void Add(User user)
+        {
+            try
+            {
+                this.context.Users.InsertOne(user);
             }
-            return new Area();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

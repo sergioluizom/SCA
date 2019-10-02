@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SCA.Model
+namespace SCA.Model.Entities
 {
     public class Profile : Entity
     {

@@ -88,7 +88,13 @@ namespace SCA
             services.AddTransient<IAreaRepository, AreaRepository>();
             services.AddTransient<IAreaService, AreaService>();
             services.AddTransient<IAreaAppService, AreaAppService>();
+
+            services.AddTransient<IUserAppService, UserAppService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

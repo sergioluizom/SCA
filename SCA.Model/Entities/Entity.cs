@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace SCA.Model
+namespace SCA.Model.Entities
 {
     public class Entity
     {

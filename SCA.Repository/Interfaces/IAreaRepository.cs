@@ -1,4 +1,4 @@
-﻿using SCA.Model;
+﻿using SCA.Model.Entities;
 using System.Threading.Tasks;
 
 namespace SCA.Repository.Interfaces

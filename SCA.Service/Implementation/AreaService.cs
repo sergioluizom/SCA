@@ -1,5 +1,5 @@
 ﻿using FluentValidation.Results;
-using SCA.Model;
+using SCA.Model.Entities;
 using SCA.Repository.Interfaces;
 using SCA.Service.Interfaces;
 using System.Threading.Tasks;

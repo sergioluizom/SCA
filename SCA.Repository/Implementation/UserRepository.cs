@@ -3,7 +3,10 @@ using SCA.Infraestrutura;
 using SCA.Model.Entities;
 using SCA.Repository.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+using SCA.Model.SearchModel;
 
 namespace SCA.Repository.Implementation
 {
@@ -15,43 +18,62 @@ namespace SCA.Repository.Implementation
             this.context = context;
         }
 
-        public async Task<string> Teste(User user)
-        {
-            try
-            {
-                await this.context.Users.InsertOneAsync(user);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return "ok";
-        }
-
-
         public async Task<User> Get()
         {
             try
             {
-                var areas = await this.context.Users.FindAsync<User>(c => c.Name == "Teste");
+                var areas = await context.Users.FindAsync(c => c.Name == "Teste");
                 return await areas.FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
+        }
+
+        public async Task<List<User>> FindByCriteria(UserSearchModel user)
+        {
+            try
+            {
+                var filtro = Builders<User>.Filter.Exists(x => x.Id);
+                if (!string.IsNullOrEmpty(user.DocumentNumber))
+                    filtro &= Builders<User>.Filter.Where(x => x.DocumentNumber.Contains(user.DocumentNumber));
+
+                if (!string.IsNullOrEmpty(user.Email))
+                    filtro &= Builders<User>.Filter.Where(x => x.Email.ToLower().Contains(user.Email.ToLower()));
+
+                if (!string.IsNullOrEmpty(user.Name))
+                    filtro &= Builders<User>.Filter.Where(x => x.Name.ToLower().Contains(user.Name.ToLower()));
+
+                if (!string.IsNullOrEmpty(user.JobFunction))
+                    filtro &= Builders<User>.Filter.Where(x => x.JobFunction.ToLower().Contains(user.JobFunction.ToLower()));
+
+                if (user.UserStatus.HasValue)
+                    filtro &= Builders<User>.Filter.Eq(x => x.Status, user.UserStatus);
+                return await context.Users.Find(filtro).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void Add(User user)
         {
             try
             {
-                this.context.Users.InsertOne(user);
+                context.Users.InsertOne(user);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        public async Task<User> Find(string id)
+        {
+            var user = await context.Users.FindAsync(x => x.Id == id);
+            return user.FirstOrDefault();
         }
     }
 }

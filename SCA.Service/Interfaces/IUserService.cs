@@ -1,9 +1,14 @@
-﻿using SCA.Model.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using SCA.Model.Entities;
+using SCA.Model.SearchModel;
 
 namespace SCA.Service.Interfaces
 {
     public interface IUserService
     {
         void Add(User user);
+        Task<List<User>> FindByCriteria(UserSearchModel user);
+        Task<User> Find(string id);
     }
 }

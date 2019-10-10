@@ -23,7 +23,7 @@ namespace SCA.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="userAppService"></param>
+        /// <param name = "userAppService" ></param>
         /// <param name="antiCSRFService"></param>
         public UserController(IUserAppService userAppService, IAntiCSRFService antiCSRFService)
         {
@@ -36,12 +36,27 @@ namespace SCA.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
+        [Route("Add")]
         [HttpPost]
-        public async Task<ActionResult> Add(User user)
-        {
-            userAppService.Add(user);
-            return new JsonResult("ok");
-        }
+        public async Task<User> Add([FromBody] User user) => await userAppService.Add(user);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [Route("Update")]
+        [HttpPut]
+        public async Task<bool> Update([FromBody] User user) => await userAppService.Update(user);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("Delete")]
+        [HttpDelete]
+        public async Task<bool> Delete(string id) => await userAppService.Delete(id);
 
         /// <summary>
         /// Solicitação de Acesso ao sistema
@@ -64,6 +79,13 @@ namespace SCA.Controllers
         [HttpPost]
         public async Task<List<User>> FindByCriteria(UserSearchModel user) => await userAppService.FindByCriteria(user);
 
+        /// <summary>
+        /// Obter usuário
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("Find")]
+        [HttpGet]
         public async Task<User> Find(string id) => await userAppService.Find(id);
     }
 }

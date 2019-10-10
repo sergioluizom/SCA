@@ -18,19 +18,6 @@ namespace SCA.Repository.Implementation
             this.context = context;
         }
 
-        public async Task<User> Get()
-        {
-            try
-            {
-                var areas = await context.Users.FindAsync(c => c.Name == "Teste");
-                return await areas.FirstOrDefaultAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         public async Task<List<User>> FindByCriteria(UserSearchModel user)
         {
             try
@@ -58,16 +45,22 @@ namespace SCA.Repository.Implementation
             }
         }
 
-        public void Add(User user)
+        public async Task<User> Add(User user)
         {
-            try
-            {
-                context.Users.InsertOne(user);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            await context.Users.InsertOneAsync(user);
+            return user;
+        }
+
+        public async Task<bool> Update(User user)
+        {
+            var result = await context.Users.ReplaceOneAsync(x => x.Id == user.Id, user);
+            return result.IsAcknowledged;
+        }
+
+        public async Task<bool> Delete(string id)
+        {
+            var result = await context.Users.DeleteOneAsync(x => x.Id == id);
+            return result.IsAcknowledged;
         }
 
         public async Task<User> Find(string id)

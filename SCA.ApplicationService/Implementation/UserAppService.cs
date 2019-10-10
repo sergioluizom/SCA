@@ -15,16 +15,10 @@ namespace SCA.ApplicationService.Implementation
             this.userService = userService;
         }
 
-        public void Add(User user)
-        {
-            userService.Add(user);
-        }
-
-        public Task<User> Find(string id) => userService.Find(id);
-
-        public async Task<List<User>> FindByCriteria(UserSearchModel user)
-        {
-            return await userService.FindByCriteria(user);
-        }
+        public async Task<User> Add(User user) => await userService.Add(user);
+        public async Task<bool> Update(User user) => await userService.Update(user);
+        public async Task<bool> Delete(string id) => await userService.Delete(id);
+        public async Task<User> Find(string id) => await userService.Find(id);
+        public async Task<List<User>> FindByCriteria(UserSearchModel user) => await userService.FindByCriteria(user);
     }
 }

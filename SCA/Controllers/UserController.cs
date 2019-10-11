@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SCA.ApplicationService.Interfaces;
 using SCA.Infraestrutura.Interfaces;
 using SCA.Model.CustomModel;
 using SCA.Model.Entities;
+using SCA.Model.Error;
 using SCA.Model.SearchModel;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SCA.Controllers
@@ -19,16 +23,18 @@ namespace SCA.Controllers
     {
         private IUserAppService userAppService;
         private readonly IAntiCSRFService antiCSRFService;
+        private readonly ILogger<UserController> logger;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name = "userAppService" ></param>
         /// <param name="antiCSRFService"></param>
-        public UserController(IUserAppService userAppService, IAntiCSRFService antiCSRFService)
+        public UserController(IUserAppService userAppService, IAntiCSRFService antiCSRFService, ILogger<UserController> logger)
         {
             this.userAppService = userAppService;
             this.antiCSRFService = antiCSRFService;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -38,7 +44,21 @@ namespace SCA.Controllers
         /// <returns></returns>
         [Route("Add")]
         [HttpPost]
-        public async Task<User> Add([FromBody] User user) => await userAppService.Add(user);
+        public async Task<ActionResult> Add([FromBody] User user)
+        {
+            logger.LogInformation($"Chamada de User.Add feita por {antiCSRFService.Login}");
+            try
+            {
+                var result = await userAppService.Add(user);
+                return StatusCode((int)HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Erro ao realizar o cadastro de usuário.");
+                var resp = new InternalServerErrorAnswer("99", "Erro ao realizar o cadastro de usuário, tente novamente mais tarde.", ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, resp);
+            }
+        }
 
         /// <summary>
         /// 
@@ -47,7 +67,21 @@ namespace SCA.Controllers
         /// <returns></returns>
         [Route("Update")]
         [HttpPut]
-        public async Task<bool> Update([FromBody] User user) => await userAppService.Update(user);
+        public async Task<ActionResult> Update([FromBody] User user)
+        {
+            logger.LogInformation($"Chamada de User.Update feita por {antiCSRFService.Login}");
+            try
+            {
+                var result = await userAppService.Update(user);
+                return StatusCode((int)HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Erro ao atualizar os dados do usuário.");
+                var resp = new InternalServerErrorAnswer("99", "Erro ao atualizar os dados do usuário.", ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, resp);
+            }
+        }
 
         /// <summary>
         /// 
@@ -56,7 +90,21 @@ namespace SCA.Controllers
         /// <returns></returns>
         [Route("Delete")]
         [HttpDelete]
-        public async Task<bool> Delete(string id) => await userAppService.Delete(id);
+        public async Task<ActionResult> Delete(string id)
+        {
+            logger.LogInformation($"Chamada de User.Delete feita por {antiCSRFService.Login}");
+            try
+            {
+                var result = await userAppService.Delete(id);
+                return StatusCode((int)HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Erro ao remover o usuário.");
+                var resp = new InternalServerErrorAnswer("99", "Erro ao remover o usuário.", ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, resp);
+            }
+        }
 
         /// <summary>
         /// Solicitação de Acesso ao sistema
@@ -67,9 +115,20 @@ namespace SCA.Controllers
         [HttpPost]
         public async Task<ActionResult> RequestAccess(UserRequestAccess user)
         {
-            userAppService.Add(UserRequestAccess.GenerateUser(user));
-            return new JsonResult("ok");
+            logger.LogInformation($"Chamada de User.RequestAccess feita por {antiCSRFService.Login}");
+            try
+            {
+                var result = await userAppService.Add(UserRequestAccess.GenerateUser(user));
+                return StatusCode((int)HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Erro ao realizar solicitar acesso.");
+                var resp = new InternalServerErrorAnswer("99", "Erro ao realizar solicitar acesso.", ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, resp);
+            }
         }
+
         /// <summary>
         /// Pesquisar usuários
         /// </summary>
@@ -77,7 +136,21 @@ namespace SCA.Controllers
         /// <returns></returns>
         [Route("Search")]
         [HttpPost]
-        public async Task<List<User>> FindByCriteria(UserSearchModel user) => await userAppService.FindByCriteria(user);
+        public async Task<ActionResult> FindByCriteria(UserSearchModel user)
+        {
+            logger.LogInformation($"Chamada de User.FindByCriteria feita por {antiCSRFService.Login}");
+            try
+            {
+                var result = await userAppService.FindByCriteria(user);
+                return StatusCode((int)HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Erro ao realizar a busca");
+                var resp = new InternalServerErrorAnswer("99", "Erro ao realizar a busca", ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, resp);
+            }
+        }
 
         /// <summary>
         /// Obter usuário
@@ -86,6 +159,20 @@ namespace SCA.Controllers
         /// <returns></returns>
         [Route("Find")]
         [HttpGet]
-        public async Task<User> Find(string id) => await userAppService.Find(id);
+        public async Task<ActionResult> Find(string id)
+        {
+            logger.LogInformation($"Chamada de User.Find feita por {antiCSRFService.Login}");
+            try
+            {
+                var result = await userAppService.Find(id);
+                return StatusCode((int)HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Erro ao buscar dados do usuário");
+                var resp = new InternalServerErrorAnswer("99", "Erro ao buscar dados do usuário", ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, resp);
+            }
+        }
     }
 }

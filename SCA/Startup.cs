@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -97,7 +98,7 @@ namespace SCA
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -107,6 +108,26 @@ namespace SCA
             {
                 app.UseHsts();
             }
+
+            app.UseExceptionHandler(appBuilder =>
+            {
+                appBuilder.Run(async context =>
+                {
+                    var responseMessage = string.Empty;
+                    var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+
+                    if (exceptionHandlerFeature != null)
+                    {
+                        var logger = loggerFactory.CreateLogger("SCA API exception logger");
+                        logger.LogError(500, exceptionHandlerFeature.Error, exceptionHandlerFeature.Error.Message);
+                        responseMessage = exceptionHandlerFeature.Error.Message;
+                    }
+
+                    context.Response.StatusCode = 500;
+                    await context.Response.WriteAsync(responseMessage);
+                });
+            });
+
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {

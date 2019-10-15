@@ -45,10 +45,17 @@ namespace SCA.Repository.Implementation
             }
         }
 
-        public async Task<User> Add(User user)
+        public async Task<bool> Add(User user)
         {
-            await context.Users.InsertOneAsync(user);
-            return user;
+            try
+            {
+                await context.Users.InsertOneAsync(user);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public async Task<bool> Update(User user)

@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json;
+using SCA.AccesControl.Adapters.Interface;
+using SCA.AccesControl.Adapters.Service;
 using SCA.Infraestrutura;
 using SCA.Infraestrutura.Filter;
 using SCA.Infraestrutura.Implementation;
@@ -15,8 +17,6 @@ using SCA.Infraestrutura.Middleware;
 using SCA.Repository.Implementation;
 using SCA.Repository.Interfaces;
 using SCA.Service.Adapters.Interfaces;
-using SCA.Service.Implementation;
-using SCA.Service.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.IO;
@@ -52,16 +52,16 @@ namespace SCA
                 options.SwaggerDoc("v1.0", new Info()
                 {
                     Version = "1.0",
-                    Title = "SCA.API",
-                    Description = "Aplicação SCA",
+                    Title = "SCA.AccesControl",
+                    Description = "Aplicação Controle de Acesso SCA",
                 });
 
-                options.AddSecurityDefinition("apiKey", new ApiKeyScheme
-                {
-                    Description = _configuration["keyValue"],
-                    Name = _configuration["keyName"],
-                    In = "header"
-                });
+                //options.AddSecurityDefinition("apiKey", new ApiKeyScheme
+                //{
+                //    Description = _configuration["keyValue"],
+                //    Name = _configuration["keyName"],
+                //    In = "header"
+                //});
                 options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> { { "apiKey", new string[] { } } });
 
                 options.OperationFilter<AddAntiCsrfHeaderOperationFilter>();
@@ -77,17 +77,12 @@ namespace SCA
         private void RegisterServices(IServiceCollection services)
         {
             services.AddSingleton(_configuration);
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IAntiCSRFService, AntiCSRFService>();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddTransient<IAntiCSRFService, AntiCSRFService>();
+            services.AddTransient<IUserAdapter, UserAdapter>();
             services.AddTransient<IRabbitMQ, Service.Adapters.Services.RabbitMQ>();
-            services.AddTransient<IAreaRepository, AreaRepository>();
-            services.AddTransient<IAreaService, AreaService>();
-
-            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserRepository, UserRepository>();
         }
-
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -127,8 +122,8 @@ namespace SCA
                 options.SwaggerEndpoint($"{basePath}/swagger/v1.0/swagger.json", "SCA API");
             });
 
-            app.UseMiddleware<AntiCSRFMiddleware>();
-            app.UseMiddleware<KeyIdMiddleware>();
+            //app.UseMiddleware<AntiCSRFMiddleware>();
+            //app.UseMiddleware<KeyIdMiddleware>();
             app.UseMvc();
         }
 

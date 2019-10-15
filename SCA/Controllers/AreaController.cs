@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SCA.ApplicationService.Interfaces;
 using SCA.Infraestrutura.Interfaces;
+using SCA.Service.Interfaces;
 using System.Threading.Tasks;
 
 namespace SCA.Controllers
@@ -10,11 +10,11 @@ namespace SCA.Controllers
     [ApiController]
     public class AreaController : ControllerBase
     {
-        private IAreaAppService areaAppService;
+        private IAreaService areaService;
         private readonly IAntiCSRFService antiCSRFService;
-        public AreaController(IAreaAppService areaAppService, IAntiCSRFService antiCSRFService)
+        public AreaController(IAreaService areaService, IAntiCSRFService antiCSRFService)
         {
-            this.areaAppService = areaAppService;
+            this.areaService = areaService;
             this.antiCSRFService = antiCSRFService;
         }
 
@@ -23,7 +23,7 @@ namespace SCA.Controllers
         [Route("area")]
         public Task<string> GetArea()
         {
-            return areaAppService.Teste();
+            return areaService.Teste();
         }
     }
 }

@@ -1,4 +1,4 @@
-ï»¿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,14 +15,12 @@ using SCA.Infraestrutura.Middleware;
 using SCA.Repository.Implementation;
 using SCA.Repository.Interfaces;
 using SCA.Service.Adapters.Interfaces;
-using SCA.Service.Implementation;
-using SCA.Service.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace SCA
+namespace SCA.ControlAccess
 {
     public class Startup
     {
@@ -52,8 +50,8 @@ namespace SCA
                 options.SwaggerDoc("v1.0", new Info()
                 {
                     Version = "1.0",
-                    Title = "SCA.API",
-                    Description = "AplicaÃ§Ã£o SCA",
+                    Title = "SCA.ControlAccess",
+                    Description = "Aplicação de Controle de Acesso SCA",
                 });
 
                 options.AddSecurityDefinition("apiKey", new ApiKeyScheme
@@ -80,14 +78,8 @@ namespace SCA
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IAntiCSRFService, AntiCSRFService>();
             services.AddTransient<IRabbitMQ, Service.Adapters.Services.RabbitMQ>();
-            services.AddTransient<IAreaRepository, AreaRepository>();
-            services.AddTransient<IAreaService, AreaService>();
-
-            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserRepository, UserRepository>();
         }
-
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

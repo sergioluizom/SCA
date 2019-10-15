@@ -11,15 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Model", "SCA.Model\SCA.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.ViewModel", "SCA.ViewModel\SCA.ViewModel.csproj", "{4618345F-F287-446A-B359-8BA31EAE363A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.ApplicationService", "SCA.ApplicationService\SCA.ApplicationService.csproj", "{741477A9-483B-4C17-B1C5-FA8244173A34}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Service", "SCA.Service\SCA.Service.csproj", "{2D265AC3-8E8F-408D-BF9F-4C6ABC7955BA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Infraestrutura", "SCA.Infraestrutura\SCA.Infraestrutura.csproj", "{0311BE8F-8652-468E-A8AD-F6D6D27C61F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.MicroservicesAPI", "SCA.MicroservicesAPI\SCA.MicroservicesAPI.csproj", "{0AE49334-92CC-40A1-B13C-2AD7EC49D751}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Validator", "SCA.Validator\SCA.Validator.csproj", "{F7F625D4-3591-47DC-90F4-F79C4BAEDF1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.Validator", "SCA.Validator\SCA.Validator.csproj", "{F7F625D4-3591-47DC-90F4-F79C4BAEDF1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.AccesControl", "SCA.AccesControl\SCA.AccesControl.csproj", "{DCBAAE90-4B1C-4CC2-AA38-1B2DB86FC8D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +41,6 @@ Global
 		{4618345F-F287-446A-B359-8BA31EAE363A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4618345F-F287-446A-B359-8BA31EAE363A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4618345F-F287-446A-B359-8BA31EAE363A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{741477A9-483B-4C17-B1C5-FA8244173A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{741477A9-483B-4C17-B1C5-FA8244173A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{741477A9-483B-4C17-B1C5-FA8244173A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{741477A9-483B-4C17-B1C5-FA8244173A34}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D265AC3-8E8F-408D-BF9F-4C6ABC7955BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D265AC3-8E8F-408D-BF9F-4C6ABC7955BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D265AC3-8E8F-408D-BF9F-4C6ABC7955BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,14 +49,14 @@ Global
 		{0311BE8F-8652-468E-A8AD-F6D6D27C61F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0311BE8F-8652-468E-A8AD-F6D6D27C61F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0311BE8F-8652-468E-A8AD-F6D6D27C61F5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0AE49334-92CC-40A1-B13C-2AD7EC49D751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AE49334-92CC-40A1-B13C-2AD7EC49D751}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AE49334-92CC-40A1-B13C-2AD7EC49D751}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AE49334-92CC-40A1-B13C-2AD7EC49D751}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7F625D4-3591-47DC-90F4-F79C4BAEDF1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7F625D4-3591-47DC-90F4-F79C4BAEDF1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7F625D4-3591-47DC-90F4-F79C4BAEDF1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7F625D4-3591-47DC-90F4-F79C4BAEDF1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCBAAE90-4B1C-4CC2-AA38-1B2DB86FC8D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBAAE90-4B1C-4CC2-AA38-1B2DB86FC8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBAAE90-4B1C-4CC2-AA38-1B2DB86FC8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCBAAE90-4B1C-4CC2-AA38-1B2DB86FC8D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

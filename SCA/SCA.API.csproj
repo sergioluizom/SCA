@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SCA.ApplicationService\SCA.ApplicationService.csproj" />
     <ProjectReference Include="..\SCA.Infraestrutura\SCA.Infraestrutura.csproj" />
     <ProjectReference Include="..\SCA.Repository\SCA.Repository.csproj" />
     <ProjectReference Include="..\SCA.Service\SCA.Service.csproj" />

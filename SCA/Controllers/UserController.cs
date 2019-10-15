@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SCA.ApplicationService.Interfaces;
 using SCA.Infraestrutura.Interfaces;
 using SCA.Model.CustomModel;
 using SCA.Model.Entities;
 using SCA.Model.Error;
 using SCA.Model.SearchModel;
+using SCA.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -21,7 +21,7 @@ namespace SCA.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IUserAppService userAppService;
+        private IUserService userService;
         private readonly IAntiCSRFService antiCSRFService;
         private readonly ILogger<UserController> logger;
 
@@ -30,9 +30,9 @@ namespace SCA.Controllers
         /// </summary>
         /// <param name = "userAppService" ></param>
         /// <param name="antiCSRFService"></param>
-        public UserController(IUserAppService userAppService, IAntiCSRFService antiCSRFService, ILogger<UserController> logger)
+        public UserController(IUserService userService, IAntiCSRFService antiCSRFService, ILogger<UserController> logger)
         {
-            this.userAppService = userAppService;
+            this.userService = userService;
             this.antiCSRFService = antiCSRFService;
             this.logger = logger;
         }
@@ -49,7 +49,7 @@ namespace SCA.Controllers
             logger.LogInformation($"Chamada de User.Add feita por {antiCSRFService.Login}");
             try
             {
-                var result = await userAppService.Add(user);
+                var result = await userService.Add(user);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
             catch (Exception ex)
@@ -72,7 +72,7 @@ namespace SCA.Controllers
             logger.LogInformation($"Chamada de User.Update feita por {antiCSRFService.Login}");
             try
             {
-                var result = await userAppService.Update(user);
+                var result = await userService.Update(user);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
             catch (Exception ex)
@@ -95,7 +95,7 @@ namespace SCA.Controllers
             logger.LogInformation($"Chamada de User.Delete feita por {antiCSRFService.Login}");
             try
             {
-                var result = await userAppService.Delete(id);
+                var result = await userService.Delete(id);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
             catch (Exception ex)
@@ -118,7 +118,7 @@ namespace SCA.Controllers
             logger.LogInformation($"Chamada de User.RequestAccess feita por {antiCSRFService.Login}");
             try
             {
-                var result = await userAppService.Add(UserRequestAccess.GenerateUser(user));
+                var result = await userService.Add(UserRequestAccess.GenerateUser(user));
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
             catch (Exception ex)
@@ -141,7 +141,7 @@ namespace SCA.Controllers
             logger.LogInformation($"Chamada de User.FindByCriteria feita por {antiCSRFService.Login}");
             try
             {
-                var result = await userAppService.FindByCriteria(user);
+                var result = await userService.FindByCriteria(user);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
             catch (Exception ex)
@@ -164,7 +164,7 @@ namespace SCA.Controllers
             logger.LogInformation($"Chamada de User.Find feita por {antiCSRFService.Login}");
             try
             {
-                var result = await userAppService.Find(id);
+                var result = await userService.Find(id);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
             catch (Exception ex)

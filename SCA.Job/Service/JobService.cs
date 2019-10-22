@@ -2,6 +2,9 @@
 using Microsoft.Extensions.Hosting;
 using Quartz;
 using Quartz.Impl;
+using SCA.Job.Configuration;
+using SCA.Job.Job;
+using SCA.Job.Service;
 using System;
 using System.Collections.Specialized;
 using System.Threading;
@@ -45,14 +48,14 @@ namespace SCA.Job
         private IServiceProvider GetConfiguredServiceProvider()
         {
             var services = new ServiceCollection()
-                .AddScoped<IUSerJob, UserJob>()
+                .AddScoped<IUserJob, UserJob>()
                 .AddScoped<IUserService, UserService>();
             return services.BuildServiceProvider();
         }
 
         private IJobDetail GetDailyJob()
         {
-            return JobBuilder.Create<IUSerJob>()
+            return JobBuilder.Create<IUserJob>()
                 .WithIdentity("dailyjob", "dailygroup")
                 .Build();
         }

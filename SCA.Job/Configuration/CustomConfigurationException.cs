@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace SCA.Job
+namespace SCA.Job.Configuration
 {
     [Serializable]
     internal class CustomConfigurationException : Exception

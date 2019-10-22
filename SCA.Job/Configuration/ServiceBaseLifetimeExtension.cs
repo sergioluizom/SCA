@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SCA.Job
+namespace SCA.Job.Configuration
 {
     public static class ServiceBaseLifetimeExtension
     {

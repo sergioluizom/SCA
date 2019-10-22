@@ -2,7 +2,7 @@
 using Quartz;
 using Quartz.Spi;
 
-namespace SCA.Job
+namespace SCA.Job.Configuration
 {
     public class CustomJobFactory : IJobFactory
     {

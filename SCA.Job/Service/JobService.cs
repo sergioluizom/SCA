@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SCA.Job
 {
-    public class BackupService : IHostedService
+    public class JobService : IHostedService
     {
         public async Task StartAsync(CancellationToken cancellationToken)
         {
@@ -45,14 +45,14 @@ namespace SCA.Job
         private IServiceProvider GetConfiguredServiceProvider()
         {
             var services = new ServiceCollection()
-                .AddScoped<IDailyJob, DailyJob>()
-                .AddScoped<IHelperService, HelperService>();
+                .AddScoped<IUSerJob, UserJob>()
+                .AddScoped<IUserService, UserService>();
             return services.BuildServiceProvider();
         }
 
         private IJobDetail GetDailyJob()
         {
-            return JobBuilder.Create<IDailyJob>()
+            return JobBuilder.Create<IUSerJob>()
                 .WithIdentity("dailyjob", "dailygroup")
                 .Build();
         }
@@ -62,7 +62,7 @@ namespace SCA.Job
                  .WithIdentity("dailytrigger", "dailygroup")
                  .StartNow()
                  .WithSimpleSchedule(x => x
-                     .WithIntervalInSeconds(10)
+                     .WithIntervalInMinutes(1)
                      .RepeatForever())
                  .Build();
         }

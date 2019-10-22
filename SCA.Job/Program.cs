@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SCA.Job.Configuration;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace SCA.Job
             var hostBuilder = new HostBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddHostedService<BackupService>();
+                    services.AddHostedService<JobService>();
                 });
             if (isDebugging)
             {

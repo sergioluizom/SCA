@@ -17,12 +17,12 @@ namespace SCA.Job.Service
         {
             try
             {
-                Uri uri = new Uri($"http://localhost/SCA.API/User/Add/");
+                Uri uri = new Uri($"https://localhost:44327/api/User/Add/");
                 HttpClient httpClient = new HttpClient();
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, uri);
                 httpRequestMessage.Headers.Add("__ANTI_CSRF_LOGIN__", "1");
                 httpRequestMessage.Headers.Add("SCA_API", "8PWXRe3djyDa7ttHfG-vQm8epNtyoRMJFEwvK");
-                var result = await httpClient.SendAsync(httpRequestMessage);
+               var result = await httpClient.SendAsync(httpRequestMessage);
                 if (result.IsSuccessStatusCode)
                 {
 

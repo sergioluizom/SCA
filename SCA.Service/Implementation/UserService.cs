@@ -21,12 +21,17 @@ namespace SCA.Service.Implementation
             this.rabbitMQ = rabbitMQ;
         }
 
-        public async Task<bool> Add(User user)
+        public async Task<bool> AddUserQueue(User user)
         {
             var result = rabbitMQ.WriteMessageOnQueue(JsonConvert.SerializeObject(user), QueueUserAdd);
-            var resultt = await rabbitMQ.RetrieveSingleMessage<User>(QueueUserAdd);
-            rabbitMQ.Dispose();
             return await result;
+        }
+
+        public async Task<bool> Add()
+        {
+            var user = await rabbitMQ.RetrieveSingleMessage<User>(QueueUserAdd);
+            rabbitMQ.Dispose();
+            return await userRepository.Add(user);
         }
 
         public async Task<bool> Update(User user) => await userRepository.Update(user);

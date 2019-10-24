@@ -36,6 +36,12 @@ namespace SCA.Service.Adapters.Services
             return queue;
         }
 
+        /// <summary>
+        /// Inserir objeto na fila
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="queueName"></param>
+        /// <returns></returns>
         public async Task<bool> WriteMessageOnQueue(string message, string queueName)
         {
             queueName = configuration[queueName];
@@ -44,6 +50,12 @@ namespace SCA.Service.Adapters.Services
             return true;
         }
 
+        /// <summary>
+        /// Recuperar objeto da fila
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queueName"></param>
+        /// <returns></returns>
         public async Task<T> RetrieveSingleMessage<T>(string queueName)
         {
             BasicGetResult data;
@@ -60,7 +72,6 @@ namespace SCA.Service.Adapters.Services
                 var message = Encoding.UTF8.GetString(body);
                 tag = ea.DeliveryTag;
             };
-            var t = channel.BasicConsume(queueName, true, consumer);
 
             return JsonConvert.DeserializeObject<T>(result);
         }

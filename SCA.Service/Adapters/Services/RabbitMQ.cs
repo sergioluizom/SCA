@@ -10,9 +10,9 @@ namespace SCA.Service.Adapters.Services
 {
     public class RabbitMQ : IRabbitMQ
     {
-        IConfiguration configuration;
-        IConnection connection;
-        IModel channel;
+        private readonly IConfiguration configuration;
+        private IConnection connection;
+        private readonly IModel channel;
         private ulong tag = 0;
         public RabbitMQ(IConfiguration configuration)
         {
@@ -42,12 +42,12 @@ namespace SCA.Service.Adapters.Services
         /// <param name="message"></param>
         /// <param name="queueName"></param>
         /// <returns></returns>
-        public async Task<bool> WriteMessageOnQueue(string message, string queueName)
+        public Task<bool> WriteMessageOnQueue(string message, string queueName)
         {
             queueName = configuration[queueName];
             CreateQueue(queueName);
             channel.BasicPublish(string.Empty, queueName, null, Encoding.ASCII.GetBytes(message));
-            return true;
+            return Task.FromResult(true);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace SCA.Service.Adapters.Services
         /// <typeparam name="T"></typeparam>
         /// <param name="queueName"></param>
         /// <returns></returns>
-        public async Task<T> RetrieveSingleMessage<T>(string queueName)
+        public Task<T> RetrieveSingleMessage<T>(string queueName)
         {
             BasicGetResult data;
             queueName = configuration[queueName];
@@ -73,7 +73,7 @@ namespace SCA.Service.Adapters.Services
                 tag = ea.DeliveryTag;
             };
 
-            return JsonConvert.DeserializeObject<T>(result);
+            return Task.FromResult(JsonConvert.DeserializeObject<T>(result));
         }
 
         public void Dispose()

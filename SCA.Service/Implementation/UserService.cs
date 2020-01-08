@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SCA.Model.Entities;
 using SCA.Model.SearchModel;
 using SCA.Repository.Interfaces;
 using SCA.Service.Adapters.Interfaces;
 using SCA.Service.Interfaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SCA.Service.Implementation
 {
@@ -21,11 +20,7 @@ namespace SCA.Service.Implementation
             this.rabbitMQ = rabbitMQ;
         }
 
-        public async Task<bool> AddUserQueue(User user)
-        {
-            var result = rabbitMQ.WriteMessageOnQueue(JsonConvert.SerializeObject(user), QueueUserAdd);
-            return await result;
-        }
+        public async Task<bool> AddUserQueue(User user) => await rabbitMQ.WriteMessageOnQueue(JsonConvert.SerializeObject(user), QueueUserAdd);
 
         public async Task<bool> Add()
         {

@@ -40,7 +40,6 @@ namespace SCA.Repository.Implementation
             {
                 throw ex;
             }
-            return new Area();
         }
     }
 }

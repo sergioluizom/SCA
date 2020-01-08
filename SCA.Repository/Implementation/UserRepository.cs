@@ -52,7 +52,7 @@ namespace SCA.Repository.Implementation
                 await context.Users.InsertOneAsync(user);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

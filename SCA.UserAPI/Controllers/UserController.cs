@@ -28,8 +28,9 @@ namespace SCA.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name = "userAppService" ></param>
+        /// <param name="userService"></param>
         /// <param name="antiCSRFService"></param>
+        /// <param name="logger"></param>
         public UserController(IUserService userService, IAntiCSRFService antiCSRFService, ILogger<UserController> logger)
         {
             this.userService = userService;
@@ -40,7 +41,6 @@ namespace SCA.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="user"></param>
         /// <returns></returns>
         [Route("Add")]
         [HttpPost]

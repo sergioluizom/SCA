@@ -14,25 +14,18 @@ namespace SCA.Service.Implementation
         private readonly IUserRepository userRepository;
         private readonly IRabbitMQ rabbitMQ;
         private const string QueueUserAdd = "QueueUserAdd";
+        private const string QueueUserUpdate = "QueueUserUpdate";
+        private const string QueueUserDelete = "QueueUserDelete";
         public UserService(IUserRepository userRepository, IRabbitMQ rabbitMQ)
         {
             this.userRepository = userRepository;
             this.rabbitMQ = rabbitMQ;
         }
 
-        public async Task<bool> AddUserQueue(User user) => await rabbitMQ.WriteMessageOnQueue(JsonConvert.SerializeObject(user), QueueUserAdd);
-
-        public async Task<bool> Add()
-        {
-            var user = await rabbitMQ.RetrieveSingleMessage<User>(QueueUserAdd);
-            rabbitMQ.Dispose();
-            return await userRepository.Add(user);
-        }
-
-        public async Task<bool> Update(User user) => await userRepository.Update(user);
-        public async Task<bool> Delete(string id) => await userRepository.Delete(id);
+        public async Task<bool> Add(User user) => await rabbitMQ.WriteMessageOnQueue(JsonConvert.SerializeObject(user), QueueUserAdd);
+        public async Task<bool> Update(User user) => await rabbitMQ.WriteMessageOnQueue(JsonConvert.SerializeObject(user), QueueUserUpdate);
+        public async Task<bool> Delete(string id) => await rabbitMQ.WriteMessageOnQueue(JsonConvert.SerializeObject(id), QueueUserDelete);
         public async Task<User> Find(string id) => await userRepository.Find(id);
         public async Task<List<User>> FindByCriteria(UserSearchModel user) => await userRepository.FindByCriteria(user);
-
     }
 }

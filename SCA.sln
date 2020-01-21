@@ -17,11 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Infraestrutura", "SCA.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Validator", "SCA.Validator\SCA.Validator.csproj", "{F7F625D4-3591-47DC-90F4-F79C4BAEDF1F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.AccesControl", "SCA.AccesControl\SCA.AccesControl.csproj", "{DCBAAE90-4B1C-4CC2-AA38-1B2DB86FC8D6}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.Job", "SCA.Job\SCA.Job.csproj", "{AD2854A1-22C3-4B22-9625-44AEBAD183B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.UserAPI", "SCA.UserAPI\SCA.UserAPI.csproj", "{14902DC0-FA20-4B21-ABA1-CB1080E04C60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCA.UserAPI", "SCA.UserAPI\SCA.UserAPI.csproj", "{14902DC0-FA20-4B21-ABA1-CB1080E04C60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCA.Utils", "SCA.Utils\SCA.Utils.csproj", "{C91FA516-D96E-4C86-85E0-C7F7E9F433FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +57,6 @@ Global
 		{F7F625D4-3591-47DC-90F4-F79C4BAEDF1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7F625D4-3591-47DC-90F4-F79C4BAEDF1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7F625D4-3591-47DC-90F4-F79C4BAEDF1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DCBAAE90-4B1C-4CC2-AA38-1B2DB86FC8D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DCBAAE90-4B1C-4CC2-AA38-1B2DB86FC8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DCBAAE90-4B1C-4CC2-AA38-1B2DB86FC8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DCBAAE90-4B1C-4CC2-AA38-1B2DB86FC8D6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD2854A1-22C3-4B22-9625-44AEBAD183B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD2854A1-22C3-4B22-9625-44AEBAD183B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD2854A1-22C3-4B22-9625-44AEBAD183B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +65,10 @@ Global
 		{14902DC0-FA20-4B21-ABA1-CB1080E04C60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14902DC0-FA20-4B21-ABA1-CB1080E04C60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14902DC0-FA20-4B21-ABA1-CB1080E04C60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C91FA516-D96E-4C86-85E0-C7F7E9F433FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C91FA516-D96E-4C86-85E0-C7F7E9F433FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C91FA516-D96E-4C86-85E0-C7F7E9F433FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C91FA516-D96E-4C86-85E0-C7F7E9F433FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

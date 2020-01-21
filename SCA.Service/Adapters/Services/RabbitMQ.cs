@@ -63,8 +63,6 @@ namespace SCA.Service.Adapters.Services
             data = channel.BasicGet(queueName, false);
             tag = data.DeliveryTag;
             var result = data != null ? Encoding.UTF8.GetString(data.Body) : null;
-
-
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (channel, ea) =>
             {
@@ -72,7 +70,6 @@ namespace SCA.Service.Adapters.Services
                 var message = Encoding.UTF8.GetString(body);
                 tag = ea.DeliveryTag;
             };
-
             return Task.FromResult(JsonConvert.DeserializeObject<T>(result));
         }
 

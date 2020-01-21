@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using SCA.Infraestrutura.Interfaces;
 using SCA.Model.CustomModel;
 using SCA.Model.Entities;
 using SCA.Model.Error;
 using SCA.Model.SearchModel;
 using SCA.Service.Interfaces;
+using SCA.Utils.Http;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -21,6 +24,7 @@ namespace SCA.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private IConfiguration configuration;
         private IUserService userService;
         private readonly IAntiCSRFService antiCSRFService;
         private readonly ILogger<UserController> logger;
@@ -31,11 +35,12 @@ namespace SCA.Controllers
         /// <param name="userService"></param>
         /// <param name="antiCSRFService"></param>
         /// <param name="logger"></param>
-        public UserController(IUserService userService, IAntiCSRFService antiCSRFService, ILogger<UserController> logger)
+        public UserController(IUserService userService, IAntiCSRFService antiCSRFService, ILogger<UserController> logger, IConfiguration configuration)
         {
             this.userService = userService;
             this.antiCSRFService = antiCSRFService;
             this.logger = logger;
+            this.configuration = configuration;
         }
 
         /// <summary>
@@ -50,7 +55,7 @@ namespace SCA.Controllers
             logger.LogInformation($"Chamada de User.Add feita por {antiCSRFService.Login}");
             try
             {
-                var result = await userService.AddUserQueue(user);
+                var result = await ClientApi.PostApiAsync("UserAdd", JsonConvert.SerializeObject(user), configuration, antiCSRFService);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
             catch (Exception ex)
@@ -119,7 +124,7 @@ namespace SCA.Controllers
             logger.LogInformation($"Chamada de User.RequestAccess feita por {antiCSRFService.Login}");
             try
             {
-                var result = await userService.AddUserQueue(UserRequestAccess.GenerateUser(user));
+                var result = await userService.Add(UserRequestAccess.GenerateUser(user));
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
             catch (Exception ex)

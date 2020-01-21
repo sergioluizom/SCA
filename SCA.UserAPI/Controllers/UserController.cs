@@ -44,12 +44,12 @@ namespace SCA.Controllers
         /// <returns></returns>
         [Route("Add")]
         [HttpPost]
-        public async Task<ActionResult> Add()
+        public async Task<ActionResult> Add([FromBody] User user)
         {
             logger.LogInformation($"Chamada de User.Add feita por {antiCSRFService.Login}");
             try
             {
-                var result = await userService.Add();
+                var result = await userService.Add(user);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
             catch (Exception ex)
@@ -118,7 +118,7 @@ namespace SCA.Controllers
             logger.LogInformation($"Chamada de User.RequestAccess feita por {antiCSRFService.Login}");
             try
             {
-                var result = await userService.AddUserQueue(UserRequestAccess.GenerateUser(user));
+                var result = await userService.Add(UserRequestAccess.GenerateUser(user));
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
             catch (Exception ex)

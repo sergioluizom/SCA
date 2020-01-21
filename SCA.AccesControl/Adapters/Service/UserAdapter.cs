@@ -35,7 +35,7 @@ namespace SCA.AccesControl.Adapters.Service
         /// <returns></returns>
         public async Task<bool> Add()
         {
-            var user = rabbitMQ.RetrieveSingleMessage<User>(QueueUserAdd);
+            var user = await rabbitMQ.RetrieveSingleMessage<User>(QueueUserAdd);
             var result = await userRepository.Add(user);
             rabbitMQ.Dispose();
             return result;

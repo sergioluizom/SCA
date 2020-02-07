@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json;
@@ -50,31 +51,28 @@ namespace SCA
         {
             services.AddMvc().AddJsonOptions(options =>
             {
-                options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                options.SerializerSettings.Formatting = Formatting.Indented;
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.WriteIndented = true;
             });
             services.AddSingleton<Context>();
-
+            services.AddControllers();
             services.AddSwaggerGen(options =>
             {
-                var serviceProvider = services.BuildServiceProvider();
-                var environment = serviceProvider.GetRequiredService<IHostingEnvironment>();
-
-                options.SwaggerDoc("v1.0", new Info()
+                options.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
                     Version = "1.0",
                     Title = "SCA.UserAPI",
                     Description = "Aplicação SCA",
                 });
 
-                options.AddSecurityDefinition("apiKey", new ApiKeyScheme
+                options.AddSecurityDefinition("apiKey", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                 {
                     Description = _configuration["keyValue"],
                     Name = _configuration["keyName"],
-                    In = "header"
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header
                 });
-                options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> { { "apiKey", new string[] { } } });
+                //new Dictionary<string, IEnumerable<string>> { { "apiKey", new string[] { } }
+                options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement());
 
                 options.OperationFilter<AddAntiCsrfHeaderOperationFilter>();
 
@@ -106,7 +104,7 @@ namespace SCA
         /// <param name="app"></param>
         /// <param name="env"></param>
         /// <param name="loggerFactory"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -145,7 +143,13 @@ namespace SCA
 
             app.UseMiddleware<AntiCSRFMiddleware>();
             app.UseMiddleware<KeyIdMiddleware>();
-            app.UseMvc();
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoins =>
+            {
+                endpoins.MapControllers();
+            });
         }
 
         private static string XmlCommentsFilePath {

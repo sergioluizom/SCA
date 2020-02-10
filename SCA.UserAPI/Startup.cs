@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using SCA.Infraestrutura;
 using SCA.Infraestrutura.Filter;
@@ -65,14 +66,27 @@ namespace SCA
                     Description = "Aplicação SCA",
                 });
 
-                options.AddSecurityDefinition("apiKey", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                options.AddSecurityDefinition("apiKey", new OpenApiSecurityScheme
                 {
                     Description = _configuration["keyValue"],
                     Name = _configuration["keyName"],
-                    In = Microsoft.OpenApi.Models.ParameterLocation.Header
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "apiAuth"
+
                 });
-                //new Dictionary<string, IEnumerable<string>> { { "apiKey", new string[] { } }
-                options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement());
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                    {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "apiKey"
+                    },
+                    Scheme = "apiAuth",
+                    In = ParameterLocation.Header
+                },new List<string>()}});
 
                 options.OperationFilter<AddAntiCsrfHeaderOperationFilter>();
 

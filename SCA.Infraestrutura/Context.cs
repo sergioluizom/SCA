@@ -20,6 +20,7 @@ namespace SCA.Infraestrutura
         public IMongoCollection<Area> Areas => _database.GetCollection<Area>(nameof(Areas).ToLower());
         public IMongoCollection<Equipamento> Equipamentos => _database.GetCollection<Equipamento>(nameof(Equipamentos).ToLower());
         public IMongoCollection<Manutencao> Manutencaos => _database.GetCollection<Manutencao>(nameof(Manutencaos).ToLower());
+        public IMongoCollection<Parada> Paradas => _database.GetCollection<Parada>(nameof(Paradas).ToLower());
         public IMongoCollection<Empresa> Empresas => _database.GetCollection<Empresa>(nameof(Empresas).ToLower());
         public IMongoCollection<TipoEquipamento> TipoEquipamentos => _database.GetCollection<TipoEquipamento>(nameof(TipoEquipamentos).ToLower());
 

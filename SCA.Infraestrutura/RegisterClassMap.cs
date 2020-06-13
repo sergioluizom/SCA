@@ -12,6 +12,7 @@ namespace SCA.Infraestrutura
             Register<TipoEquipamento>();
             Register<Empresa>();
             Register<Manutencao>();
+            Register<Parada>();
         }
 
         private static void Register<T>()

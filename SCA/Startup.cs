@@ -40,32 +40,32 @@ namespace SCA
             try
             {
 
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.IgnoreNullValues = true;
-                options.JsonSerializerOptions.WriteIndented = true;
-            });
-            services.AddSingleton<Context>();
-            services.AddControllers();
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo()
+                services.AddMvc().AddJsonOptions(options =>
                 {
-                    Version = "1.0",
-                    Title = "SCA.API",
-                    Description = "Aplicação SCA",
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                    options.JsonSerializerOptions.WriteIndented = true;
                 });
-
-                options.AddSecurityDefinition("apiKey", new OpenApiSecurityScheme
+                services.AddSingleton<Context>();
+                services.AddControllers();
+                services.AddSwaggerGen(options =>
                 {
-                    Description = _configuration["keyValue"],
-                    Name = _configuration["keyName"],
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "apiAuth"
+                    options.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Version = "1.0",
+                        Title = "SCA.API",
+                        Description = "Aplicação SCA",
+                    });
 
-                });
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                    options.AddSecurityDefinition("apiKey", new OpenApiSecurityScheme
+                    {
+                        Description = _configuration["keyValue"],
+                        Name = _configuration["keyName"],
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "apiAuth"
+
+                    });
+                    options.AddSecurityRequirement(new OpenApiSecurityRequirement{
                     {
                 new OpenApiSecurityScheme
                 {
@@ -78,18 +78,18 @@ namespace SCA
                     In = ParameterLocation.Header
                 },new List<string>()}});
 
-                options.OperationFilter<AddAntiCsrfHeaderOperationFilter>();
+                    options.OperationFilter<AddAntiCsrfHeaderOperationFilter>();
 
-                options.IncludeXmlComments(XmlCommentsFilePath);
+                    options.IncludeXmlComments(XmlCommentsFilePath);
 
                 // Define que cada objeto do swagger possua o nome completo para evitar conflitos
                 options.CustomSchemaIds(x => x.FullName);
-            });
+                });
 
-            RegisterServices(services);
+                RegisterServices(services);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -102,7 +102,12 @@ namespace SCA
             services.AddTransient<IAntiCSRFService, AntiCSRFService>();
             services.AddTransient<IRabbitMQ, Service.Adapters.Services.RabbitMQ>();
             services.AddTransient<IEquipamentoService, EquipamentoService>();
+            services.AddTransient<IManutencaoService, ManutencaoService>();
+            services.AddTransient<IParadaService, ParadaService>();
+
             services.AddTransient<IEquipamentoRepository, EquipamentoRepository>();
+            services.AddTransient<IManutencaoRepository, ManutencaoRepository>();
+            services.AddTransient<IParadaRepository, ParadaRepository>();
         }
 
 

@@ -2,8 +2,8 @@
 {
     public enum StatusManutencaoEnum
     {
-        Cadastrada,
-        Concluida,
-        Liberado
+        Cadastrada = 1,
+        Concluida = 2 ,
+        Liberado = 3
     }
 }

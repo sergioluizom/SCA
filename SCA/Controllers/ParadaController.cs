@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SCA.Infraestrutura.Interfaces;
 using SCA.Model.Entidades;
@@ -17,18 +18,18 @@ namespace SCA.API.Controllers
     [Produces("application/json")]
     [ApiController]
 
-    public class EquipamentoController : ControllerBase
+    public class ParadaController : ControllerBase
     {
-        private readonly IEquipamentoService service;
+        private readonly IParadaService service;
         private readonly IAntiCSRFService antiCSRFService;
-        private readonly ILogger<EquipamentoController> logger;
+        private readonly ILogger<ParadaController> logger;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="service"></param>
         /// <param name="antiCSRFService"></param>
         /// <param name="logger"></param>
-        public EquipamentoController(IEquipamentoService service, IAntiCSRFService antiCSRFService, ILogger<EquipamentoController> logger)
+        public ParadaController(IParadaService service, IAntiCSRFService antiCSRFService, ILogger<ParadaController> logger)
         {
             this.service = service;
             this.antiCSRFService = antiCSRFService;
@@ -43,9 +44,9 @@ namespace SCA.API.Controllers
         [Route("Adicionar")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult Adicionar([FromBody] Equipamento entity)
+        public ActionResult Adicionar([FromBody] Parada entity)
         {
-            logger.LogInformation($"Chamada de Equipamento.Adicionar");
+            logger.LogInformation($"Chamada de Parada.Adicionar");
             try
             {
                 var result = service.Adicionar(entity);
@@ -53,7 +54,7 @@ namespace SCA.API.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Erro ao adicionar o equipamento.");
+                logger.LogError(ex, "Erro ao adicionar a parada.");
                 return BadRequest();
             }
         }
@@ -66,9 +67,9 @@ namespace SCA.API.Controllers
         [Route("Atualizar")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult Atualizar([FromBody] Equipamento entity)
+        public ActionResult Atualizar([FromBody] Parada entity)
         {
-            logger.LogInformation($"Chamada de Equipamento.Atualizar");
+            logger.LogInformation($"Chamada de Parada.Atualizar");
             try
             {
                 var result = service.Atualizar(entity);
@@ -76,7 +77,7 @@ namespace SCA.API.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Erro ao atualizar o equipamento.");
+                logger.LogError(ex, "Erro ao atualizar a parada.");
                 return BadRequest();
             }
         }
@@ -87,18 +88,18 @@ namespace SCA.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("ObterPorId/{id}")]
-        [ProducesResponseType(typeof(Equipamento), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult ObterPorId([FromQuery] string id)
         {
-            logger.LogInformation($"Chamada de Equipamento.ObterPorId");
+            logger.LogInformation($"Chamada de Parada.ObterPorId");
             try
             {
                 return StatusCode((int)HttpStatusCode.OK, service.ObterPorId(id));
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Erro ao obter o equipamento.");
+                logger.LogError(ex, "Erro ao obter a parada.");
                 return BadRequest();
             }
         }
@@ -113,7 +114,7 @@ namespace SCA.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult Excluir([FromRoute] string id)
         {
-            logger.LogInformation($"Chamada de Equipamento.Excluir");
+            logger.LogInformation($"Chamada de Parada.Excluir");
             try
             {
                 var result = service.Excluir(id);
@@ -121,29 +122,50 @@ namespace SCA.API.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Erro ao remover o equipamento.");
+                logger.LogError(ex, "Erro ao remover a parada.");
                 return BadRequest();
             }
         }
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("Filtrar")]
-        [ProducesResponseType(typeof(List<Equipamento>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult Filtrar(string id)
+        public ActionResult Filtrar()
         {
-            logger.LogInformation($"Chamada de Equipamento.Filtrar");
+            logger.LogInformation($"Chamada de Parada.Filtrar");
             try
             {
-                return StatusCode((int)HttpStatusCode.OK, service.Filtrar(id));
+                return StatusCode((int)HttpStatusCode.OK, service.Filtrar());
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Erro ao filtrar o equipamento.");
+                logger.LogError(ex, "Erro ao filtrar a parada.");
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("ObterTodos")]
+        [ProducesResponseType(typeof(List<Parada>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult ObterTodos()
+        {
+            logger.LogInformation($"Chamada de Parada.ObterTodos");
+            try
+            {
+                return StatusCode((int)HttpStatusCode.OK, service.ObterTodos());
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Erro ao ObterTodos.");
                 return BadRequest();
             }
         }

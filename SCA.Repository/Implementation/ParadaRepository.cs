@@ -8,33 +8,33 @@ using System.Collections.Generic;
 
 namespace SCA.Repository.Implementation
 {
-    public class ManutencaoRepository : IManutencaoRepository
+    public class ParadaRepository : IParadaRepository
     {
         private readonly Context context;
-        public ManutencaoRepository(Context context)
+        public ParadaRepository(Context context)
         {
             this.context = context;
         }
 
-        public bool Adicionar(Manutencao entity)
+        public bool Adicionar(Parada entity)
         {
-            context.Manutencaos.InsertOneAsync(entity).GetAwaiter().GetResult();
+            context.Paradas.InsertOneAsync(entity).GetAwaiter().GetResult();
             return true;
         }
 
-        public bool Atualizar(Manutencao entity)
+        public bool Atualizar(Parada entity)
         {
-            var result = context.Manutencaos.ReplaceOneAsync(x => x.Id == entity.Id, entity).GetAwaiter().GetResult();
+            var result = context.Paradas.ReplaceOneAsync(x => x.Id == entity.Id, entity).GetAwaiter().GetResult();
             return result.IsAcknowledged;
         }
 
         public bool Excluir(string id)
         {
-            var result = context.Manutencaos.DeleteOneAsync(x => x.Id == id).GetAwaiter().GetResult();
+            var result = context.Paradas.DeleteOneAsync(x => x.Id == id).GetAwaiter().GetResult();
             return result.IsAcknowledged;
         }
 
-        public Manutencao Filtrar(string id)
+        public List<Parada> Filtrar()
         {
             //try
             //{
@@ -59,36 +59,18 @@ namespace SCA.Repository.Implementation
             //{
             //    throw ex;
             //}
-            return new Manutencao();
+            return new List<Parada>();
         }
-
-        public bool Liberar(string id)
+       
+        public Parada ObterPorId(string id)
         {
-            var entity = ObterPorId(id);
-            entity.Status = Model.Enums.StatusManutencaoEnum.Liberado;
-            var result = context.Manutencaos.ReplaceOneAsync(x => x.Id == entity.Id, entity).GetAwaiter().GetResult();
-            return result.IsAcknowledged;
-        }
-
-        public Manutencao ObterPorId(string id)
-        {
-            var result = context.Manutencaos.FindAsync(x => x.Id == id).GetAwaiter().GetResult();
+            var result = context.Paradas.FindAsync(x => x.Id == id).GetAwaiter().GetResult();
             return result.FirstOrDefault();
         }
 
-        public List<Manutencao> ObterTodos()
+        public List<Parada> ObterTodos()
         {
-            return context.Manutencaos.FindAsync(new BsonDocument()).GetAwaiter().GetResult().ToList();
-        }
-
-        public List<Manutencao> ObterConcluidas()
-        {
-            return context.Manutencaos.FindAsync(x=> x.Status == Model.Enums.StatusManutencaoEnum.Concluida).GetAwaiter().GetResult().ToList();
-        }
-
-        public List<Manutencao> ObterCadastradas()
-        {
-            return context.Manutencaos.FindAsync(x => x.Status == Model.Enums.StatusManutencaoEnum.Cadastrada).GetAwaiter().GetResult().ToList();
-        }
+            return context.Paradas.FindAsync(new BsonDocument()).GetAwaiter().GetResult().ToList();
+        }       
     }
 }

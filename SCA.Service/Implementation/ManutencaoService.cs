@@ -1,6 +1,7 @@
 ﻿using SCA.Model.Entidades;
 using SCA.Repository.Interfaces;
 using SCA.Service.Interfaces;
+using System.Collections.Generic;
 
 namespace SCA.Service.Implementation
 {
@@ -33,9 +34,29 @@ namespace SCA.Service.Implementation
             return repository.Filtrar(id);
         }
 
+        public bool Liberar(string id)
+        {
+            return repository.Liberar(id);
+        }
+
         public Manutencao ObterPorId(string id)
         {
             return repository.ObterPorId(id);
+        }
+
+        public List<Manutencao> ObterTodos()
+        {
+            return repository.ObterTodos();
+        }
+
+        public List<Manutencao> ObterConcluidas()
+        {
+            return repository.ObterConcluidas();
+        }
+
+        public List<Manutencao> ObterCadastradas()
+        {
+            return repository.ObterCadastradas();
         }
     }
 }

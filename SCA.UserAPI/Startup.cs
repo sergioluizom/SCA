@@ -105,11 +105,8 @@ namespace SCA
             services.AddTransient<IAntiCSRFService, AntiCSRFService>();
             services.AddTransient<IRabbitMQ, Service.Adapters.Services.RabbitMQ>();
 
-            services.AddTransient<IAreaRepository, AreaRepository>();
-            services.AddTransient<IAreaService, AreaService>();
-
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddScoped<IEquipamentoService, EquipamentoService>();
+            services.AddScoped<IEquipamentoRepository, EquipamentoRepository>();
         }
 
         /// <summary>

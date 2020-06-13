@@ -18,6 +18,7 @@ using SCA.Repository.Interfaces;
 using SCA.Service.Adapters.Interfaces;
 using SCA.Service.Implementation;
 using SCA.Service.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -36,6 +37,9 @@ namespace SCA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            try
+            {
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.IgnoreNullValues = true;
@@ -83,6 +87,12 @@ namespace SCA
             });
 
             RegisterServices(services);
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void RegisterServices(IServiceCollection services)
@@ -91,11 +101,8 @@ namespace SCA
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IAntiCSRFService, AntiCSRFService>();
             services.AddTransient<IRabbitMQ, Service.Adapters.Services.RabbitMQ>();
-            services.AddTransient<IAreaRepository, AreaRepository>();
-            services.AddTransient<IAreaService, AreaService>();
-
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IEquipamentoService, EquipamentoService>();
+            services.AddTransient<IEquipamentoRepository, EquipamentoRepository>();
         }
 
 

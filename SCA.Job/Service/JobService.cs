@@ -19,11 +19,11 @@ namespace SCA.Job
             try
             {
                 var scheduler = await GetScheduler();
-                var serviceProvider = GetConfiguredServiceProvider();
-                scheduler.JobFactory = new CustomJobFactory(serviceProvider);
+                //var serviceProvider = GetConfiguredServiceProvider();
+                //scheduler.JobFactory = new CustomJobFactory(serviceProvider);
 
                 await scheduler.Start();
-                await scheduler.ScheduleJob(GetDailyJob(), GetDailyJobTrigger());
+                //await scheduler.ScheduleJob(GetDailyJob(), GetDailyJobTrigger());
             }
             catch (Exception ex)
             {
@@ -45,20 +45,20 @@ namespace SCA.Job
             return scheduler;
         }
 
-        private IServiceProvider GetConfiguredServiceProvider()
-        {
-            var services = new ServiceCollection()
-                .AddScoped<IUserJob, UserJob>()
-                .AddScoped<IUserService, UserService>();
-            return services.BuildServiceProvider();
-        }
+        //private IServiceProvider GetConfiguredServiceProvider()
+        //{
+        //    var services = new ServiceCollection()
+        //        .AddScoped<IUserJob, UserJob>()
+        //        .AddScoped<IUserService, UserService>();
+        //    return services.BuildServiceProvider();
+        //}
 
-        private IJobDetail GetDailyJob()
-        {
-            return JobBuilder.Create<IUserJob>()
-                .WithIdentity("dailyjob", "dailygroup")
-                .Build();
-        }
+        //private IJobDetail GetDailyJob()
+        //{
+        //    return JobBuilder.Create<IUserJob>()
+        //        .WithIdentity("dailyjob", "dailygroup")
+        //        .Build();
+        //}
         private ITrigger GetDailyJobTrigger()
         {
             return TriggerBuilder.Create()

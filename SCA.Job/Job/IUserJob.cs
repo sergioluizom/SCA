@@ -2,7 +2,7 @@
 
 namespace SCA.Job.Job
 {
-    public interface IUserJob : IJob
-    {
-    }
+    //public interface IUserJob : IJob
+    //{
+    //}
 }

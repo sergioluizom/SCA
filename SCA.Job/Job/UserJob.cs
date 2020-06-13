@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 
 namespace SCA.Job.Job
 {
-    public class UserJob : IUserJob
-    {
-        public async Task Execute(IJobExecutionContext context)
-        {            
-        }
-    }
+    //public class UserJob : IUserJob
+    //{
+    //    //public async Task Execute(IJobExecutionContext context)
+    //    //{            
+    //    //}
+    //}
 }

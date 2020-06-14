@@ -4,7 +4,6 @@ using Quartz;
 using Quartz.Impl;
 using SCA.Job.Configuration;
 using SCA.Job.Job;
-using SCA.Job.Service;
 using System;
 using System.Collections.Specialized;
 using System.Threading;
@@ -19,11 +18,11 @@ namespace SCA.Job
             try
             {
                 var scheduler = await GetScheduler();
-                //var serviceProvider = GetConfiguredServiceProvider();
-                //scheduler.JobFactory = new CustomJobFactory(serviceProvider);
+                var serviceProvider = GetConfiguredServiceProvider();
+                scheduler.JobFactory = new CustomJobFactory(serviceProvider);
 
                 await scheduler.Start();
-                //await scheduler.ScheduleJob(GetDailyJob(), GetDailyJobTrigger());
+                await scheduler.ScheduleJob(GetDailyJob(), GetDailyJobTrigger());
             }
             catch (Exception ex)
             {
@@ -36,7 +35,6 @@ namespace SCA.Job
             return Task.CompletedTask;
         }
 
-
         private static async Task<IScheduler> GetScheduler()
         {
             var props = new NameValueCollection { { "quartz.serializer.type", "binary" } };
@@ -45,20 +43,19 @@ namespace SCA.Job
             return scheduler;
         }
 
-        //private IServiceProvider GetConfiguredServiceProvider()
-        //{
-        //    var services = new ServiceCollection()
-        //        .AddScoped<IUserJob, UserJob>()
-        //        .AddScoped<IUserService, UserService>();
-        //    return services.BuildServiceProvider();
-        //}
+        private IServiceProvider GetConfiguredServiceProvider()
+        {
+            var services = new ServiceCollection()
+                .AddScoped<IOperacaoJob, OperacaoJob>();
+            return services.BuildServiceProvider();
+        }
 
-        //private IJobDetail GetDailyJob()
-        //{
-        //    return JobBuilder.Create<IUserJob>()
-        //        .WithIdentity("dailyjob", "dailygroup")
-        //        .Build();
-        //}
+        private IJobDetail GetDailyJob()
+        {
+            return JobBuilder.Create<IOperacaoJob>()
+                .WithIdentity("dailyjob", "dailygroup")
+                .Build();
+        }
         private ITrigger GetDailyJobTrigger()
         {
             return TriggerBuilder.Create()

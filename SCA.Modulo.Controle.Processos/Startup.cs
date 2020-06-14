@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SCA.Infraestrutura;
 using SCA.Infraestrutura.Filter;
@@ -15,6 +17,7 @@ using SCA.Infraestrutura.Interfaces;
 using SCA.Infraestrutura.Middleware;
 using SCA.Repository.Implementation;
 using SCA.Repository.Interfaces;
+using SCA.Service.Adapters.Consumers;
 using SCA.Service.Adapters.Interfaces;
 using SCA.Service.Implementation;
 using SCA.Service.Interfaces;
@@ -22,8 +25,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
-namespace SCA
+namespace SCA.Modulo.Controle.Processos
 {
     public class Startup
     {
@@ -39,7 +43,7 @@ namespace SCA
         {
             try
             {
-
+                services.AddHostedService<OperacaoConsumerRabbitService>();
                 services.AddMvc().AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.IgnoreNullValues = true;
@@ -48,9 +52,9 @@ namespace SCA
                 services.AddSingleton<Context>();
                 services.AddControllers();
                 Utils.Configuration.JwtConfig.AddIdentityConfiguration(services, _configuration);
-                Utils.Configuration.SwaggerConfig.AddSwaggerConfiguration(services, XmlCommentsFilePath, "SCA Gerenciamento de Ativos");
-                RegisterServices(services);
+                Utils.Configuration.SwaggerConfig.AddSwaggerConfiguration(services, XmlCommentsFilePath, "SCA Controle de Processos");
 
+                RegisterServices(services);
             }
             catch (Exception ex)
             {
@@ -63,14 +67,15 @@ namespace SCA
             services.AddSingleton(_configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAntiCSRFService, AntiCSRFService>();
-            services.AddScoped<IRabbitMQ, Service.Adapters.Services.RabbitMQ>();
+            services.AddSingleton<IRabbitMQ, Service.Adapters.Services.RabbitMQ>();
+
             services.AddScoped<IEquipamentoService, EquipamentoService>();
-            services.AddScoped<IManutencaoService, ManutencaoService>();
+            services.AddScoped<IOperacaoService, OperacaoService>();
             services.AddScoped<IParadaService, ParadaService>();
 
             services.AddScoped<IEquipamentoRepository, EquipamentoRepository>();
-            services.AddScoped<IManutencaoRepository, ManutencaoRepository>();
             services.AddScoped<IParadaRepository, ParadaRepository>();
+            services.AddSingleton<IOperacaoRepository, OperacaoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -102,8 +107,8 @@ namespace SCA
                     context.Response.StatusCode = 500;
                     await context.Response.WriteAsync(responseMessage);
                 });
-            });          
-
+            });
+          
             app.UseHttpsRedirection();
             app.UseRouting();
             Utils.Configuration.JwtConfig.UseIdentityConfiguration(app);

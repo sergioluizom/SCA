@@ -1,15 +1,14 @@
-﻿using FluentValidation.Results;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SCA.Infraestrutura.Interfaces;
 using SCA.Model.Entidades;
-using SCA.Model.Error;
 using SCA.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Net;
 
-namespace SCA.API.Controllers
+namespace SCA.Modulo.Controle.Processos
 {
     /// <summary>
     /// 
@@ -44,6 +43,7 @@ namespace SCA.API.Controllers
         [Route("Adicionar")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult Adicionar([FromBody] Parada entity)
         {
             logger.LogInformation($"Chamada de Parada.Adicionar");
@@ -67,6 +67,7 @@ namespace SCA.API.Controllers
         [Route("Atualizar")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult Atualizar([FromBody] Parada entity)
         {
             logger.LogInformation($"Chamada de Parada.Atualizar");
@@ -90,6 +91,7 @@ namespace SCA.API.Controllers
         [Route("ObterPorId/{id}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult ObterPorId([FromQuery] string id)
         {
             logger.LogInformation($"Chamada de Parada.ObterPorId");
@@ -112,6 +114,7 @@ namespace SCA.API.Controllers
         [Route("Excluir/{id}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult Excluir([FromRoute] string id)
         {
             logger.LogInformation($"Chamada de Parada.Excluir");
@@ -132,8 +135,9 @@ namespace SCA.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("Filtrar")]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(List<Parada>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult Filtrar()
         {
             logger.LogInformation($"Chamada de Parada.Filtrar");
@@ -156,6 +160,7 @@ namespace SCA.API.Controllers
         [Route("ObterTodos")]
         [ProducesResponseType(typeof(List<Parada>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult ObterTodos()
         {
             logger.LogInformation($"Chamada de Parada.ObterTodos");

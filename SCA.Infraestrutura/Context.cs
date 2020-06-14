@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using SCA.Model.Entidades;
 using System.Security.Authentication;
@@ -21,8 +20,10 @@ namespace SCA.Infraestrutura
         public IMongoCollection<Equipamento> Equipamentos => _database.GetCollection<Equipamento>(nameof(Equipamentos).ToLower());
         public IMongoCollection<Manutencao> Manutencaos => _database.GetCollection<Manutencao>(nameof(Manutencaos).ToLower());
         public IMongoCollection<Parada> Paradas => _database.GetCollection<Parada>(nameof(Paradas).ToLower());
+        public IMongoCollection<Operacao> Operacaos => _database.GetCollection<Operacao>(nameof(Operacaos).ToLower());
         public IMongoCollection<Empresa> Empresas => _database.GetCollection<Empresa>(nameof(Empresas).ToLower());
         public IMongoCollection<TipoEquipamento> TipoEquipamentos => _database.GetCollection<TipoEquipamento>(nameof(TipoEquipamentos).ToLower());
+        public IMongoCollection<Usuario> Usuarios => _database.GetCollection<Usuario>(nameof(Usuarios).ToLower());
 
         private static IMongoDatabase DatabaseFactory(string connectionString, string databaseName)
         {

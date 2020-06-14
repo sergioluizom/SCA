@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SCA.Infraestrutura.Interfaces;
 using SCA.Model.Entidades;
-using SCA.Model.Error;
 using SCA.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -43,6 +43,7 @@ namespace SCA.API.Controllers
         [Route("Adicionar")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult Adicionar([FromBody] Equipamento entity)
         {
             logger.LogInformation($"Chamada de Equipamento.Adicionar");
@@ -66,6 +67,7 @@ namespace SCA.API.Controllers
         [Route("Atualizar")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult Atualizar([FromBody] Equipamento entity)
         {
             logger.LogInformation($"Chamada de Equipamento.Atualizar");
@@ -89,6 +91,7 @@ namespace SCA.API.Controllers
         [Route("ObterPorId/{id}")]
         [ProducesResponseType(typeof(Equipamento), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult ObterPorId([FromQuery] string id)
         {
             logger.LogInformation($"Chamada de Equipamento.ObterPorId");
@@ -111,6 +114,7 @@ namespace SCA.API.Controllers
         [Route("Excluir/{id}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult Excluir([FromRoute] string id)
         {
             logger.LogInformation($"Chamada de Equipamento.Excluir");
@@ -134,6 +138,7 @@ namespace SCA.API.Controllers
         [Route("Filtrar")]
         [ProducesResponseType(typeof(List<Equipamento>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "admin")]
         public ActionResult Filtrar(string id)
         {
             logger.LogInformation($"Chamada de Equipamento.Filtrar");

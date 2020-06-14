@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SCA.Authentication</name>
+    </assembly>
+    <members>
+        <member name="T:SCA.Modulo.Controle.Processos.AuthenticationController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.AuthenticationController.#ctor(Microsoft.Extensions.Logging.ILogger{SCA.Modulo.Controle.Processos.AuthenticationController},SCA.Repository.Interfaces.IUsuarioRepository)">
+            <summary>
+            
+            </summary>
+            <param name="service"></param>
+            <param name="antiCSRFService"></param>
+            <param name="logger"></param>
+        </member>
+    </members>
+</doc>

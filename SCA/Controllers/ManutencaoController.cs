@@ -129,30 +129,7 @@ namespace SCA.API.Controllers
                 return BadRequest();
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("Filtrar")]
-        [ProducesResponseType(typeof(List<Manutencao>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [Authorize(Roles = "admin")]
-        public ActionResult Filtrar(string id)
-        {
-            logger.LogInformation($"Chamada de Manutencao.Filtrar");
-            try
-            {
-                return StatusCode((int)HttpStatusCode.OK, service.Filtrar(id));
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Erro ao filtrar a manutenção.");
-                return BadRequest();
-            }
-        }
-
+      
         /// <summary>
         /// 
         /// </summary>

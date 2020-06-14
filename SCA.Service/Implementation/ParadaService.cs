@@ -29,11 +29,6 @@ namespace SCA.Service.Implementation
             return repository.Excluir(id);
         }
 
-        public List<Parada> Filtrar()
-        {
-            return repository.Filtrar();
-        }       
-
         public Parada ObterPorId(string id)
         {
             return repository.ObterPorId(id);

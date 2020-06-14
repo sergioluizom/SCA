@@ -35,11 +35,6 @@ namespace SCA.Service.Implementation
             return repository.Excluir(id);
         }
 
-        public List<Operacao> Filtrar()
-        {
-            return repository.Filtrar();
-        }
-
         public Operacao ObterPorId(string id)
         {
             return repository.ObterPorId(id);

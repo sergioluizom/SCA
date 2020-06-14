@@ -28,11 +28,6 @@ namespace SCA.Service.Implementation
             return repository.Excluir(id);
         }
 
-        public Equipamento Filtrar(string id)
-        {
-            return repository.Filtrar(id);
-        }
-
         public Equipamento ObterPorId(string id)
         {
             return repository.ObterPorId(id);

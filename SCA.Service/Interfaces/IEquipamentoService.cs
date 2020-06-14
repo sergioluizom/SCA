@@ -8,6 +8,5 @@ namespace SCA.Service.Interfaces
         bool Atualizar(Equipamento entity);
         Equipamento ObterPorId(string id);
         bool Excluir(string id);
-        Equipamento Filtrar(string id);
     }
 }

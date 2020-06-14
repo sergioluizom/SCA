@@ -10,7 +10,6 @@ namespace SCA.Repository.Interfaces
         Manutencao ObterPorId(string id);
         bool Excluir(string id);
         bool Liberar(string id);
-        Manutencao Filtrar(string id);
         List<Manutencao> ObterTodos();
         List<Manutencao> ObterConcluidas();
         List<Manutencao> ObterCadastradas();

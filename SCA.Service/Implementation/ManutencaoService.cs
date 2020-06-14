@@ -29,11 +29,6 @@ namespace SCA.Service.Implementation
             return repository.Excluir(id);
         }
 
-        public Manutencao Filtrar(string id)
-        {
-            return repository.Filtrar(id);
-        }
-
         public bool Liberar(string id)
         {
             return repository.Liberar(id);

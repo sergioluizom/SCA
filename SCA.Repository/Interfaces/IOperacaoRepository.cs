@@ -10,7 +10,6 @@ namespace SCA.Repository.Interfaces
         bool Atualizar(Operacao entity);
         Operacao ObterPorId(string id);
         bool Excluir(string id);
-        List<Operacao> Filtrar();
         List<Operacao> ObterTodos();
     }
 }

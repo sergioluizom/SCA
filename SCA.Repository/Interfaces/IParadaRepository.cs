@@ -9,7 +9,6 @@ namespace SCA.Repository.Interfaces
         bool Atualizar(Parada entity);
         Parada ObterPorId(string id);
         bool Excluir(string id);
-        List<Parada> Filtrar();
         List<Parada> ObterTodos();
     }
 }

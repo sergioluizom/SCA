@@ -130,29 +130,7 @@ namespace SCA.Modulo.Controle.Processos
                 return BadRequest();
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("Filtrar")]
-        [ProducesResponseType(typeof(List<Operacao>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [Authorize(Roles = "admin")]
-        public ActionResult Filtrar()
-        {
-            logger.LogInformation($"Chamada de Operacao.Filtrar");
-            try
-            {
-                return StatusCode((int)HttpStatusCode.OK, service.Filtrar());
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Erro ao filtrar o operação.");
-                return BadRequest();
-            }
-        }
-
+       
         /// <summary>
         /// 
         /// </summary>

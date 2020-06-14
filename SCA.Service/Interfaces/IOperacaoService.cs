@@ -10,6 +10,5 @@ namespace SCA.Service.Interfaces
         Operacao ObterPorId(string id);
         bool Excluir(string id);
         List<Operacao> ObterTodos();
-        List<Operacao> Filtrar();
     }
 }

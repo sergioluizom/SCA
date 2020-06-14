@@ -10,6 +10,5 @@ namespace SCA.Service.Interfaces
         Parada ObterPorId(string id);
         bool Excluir(string id);
         List<Parada> ObterTodos();
-        List<Parada> Filtrar();
     }
 }

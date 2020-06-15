@@ -20,6 +20,12 @@ namespace SCA.Service.Adapters.Services
             CreateConnection();
             channel = connection.CreateModel();
         }
+
+        public IModel GetChannel()
+        {
+            return channel;
+        }
+
         private void CreateConnection()
         {
             var connectionFactory = new ConnectionFactory();

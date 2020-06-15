@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SCA.Modulo.Controle.Processos</name>
+    </assembly>
+    <members>
+        <member name="T:SCA.Modulo.Controle.Processos.OperacaoController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.OperacaoController.#ctor(SCA.Service.Interfaces.IOperacaoService,SCA.Infraestrutura.Interfaces.IAntiCSRFService,Microsoft.Extensions.Logging.ILogger{SCA.Modulo.Controle.Processos.OperacaoController})">
+            <summary>
+            
+            </summary>
+            <param name="service"></param>
+            <param name="antiCSRFService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.OperacaoController.Adicionar(SCA.Model.Entidades.Operacao)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.OperacaoController.Atualizar(SCA.Model.Entidades.Operacao)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.OperacaoController.ObterPorId(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.OperacaoController.Excluir(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.OperacaoController.Filtrar">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.OperacaoController.ObterTodos">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SCA.Modulo.Controle.Processos.ParadaController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.ParadaController.#ctor(SCA.Service.Interfaces.IParadaService,SCA.Infraestrutura.Interfaces.IAntiCSRFService,Microsoft.Extensions.Logging.ILogger{SCA.Modulo.Controle.Processos.ParadaController})">
+            <summary>
+            
+            </summary>
+            <param name="service"></param>
+            <param name="antiCSRFService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.ParadaController.Adicionar(SCA.Model.Entidades.Parada)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.ParadaController.Atualizar(SCA.Model.Entidades.Parada)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.ParadaController.ObterPorId(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.ParadaController.Excluir(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.ParadaController.Filtrar">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.ParadaController.ObterTodos">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:SCA.Modulo.Controle.Processos.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

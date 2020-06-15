@@ -16,11 +16,13 @@
       "environmentVariables": {
         "RabbitMQHost": "localhost",
         "RabbitMQPassword": "guest",
-        "keyName": "SCA_API",
+        "keyName": "SCA_Modulo_Gerenciamento_Ativos",
         "RabbitMQUserName": "guest",
         "keyValue": "8PWXRe3djyDa7ttHfG-vQm8epNtyoRMJFEwvK",
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "QueueUserAdd": "UserAdd"
+        "QueueManutencao": "SCA_Modulo_Gerenciamento_Ativos_Manutencao",
+        "connectionStringMongo": "mongodb://application:sergio9205@ds337985.mlab.com:37985/heroku_386b1s1k?retryWrites=false",
+        "userMongo": "heroku_386b1s1k"
       }
     },
     "SCA": {

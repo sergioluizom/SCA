@@ -4,7 +4,6 @@ using Quartz;
 using Quartz.Impl;
 using SCA.Job.Configuration;
 using SCA.Job.Job;
-using SCA.Job.Service;
 using System;
 using System.Collections.Specialized;
 using System.Threading;
@@ -36,7 +35,6 @@ namespace SCA.Job
             return Task.CompletedTask;
         }
 
-
         private static async Task<IScheduler> GetScheduler()
         {
             var props = new NameValueCollection { { "quartz.serializer.type", "binary" } };
@@ -48,14 +46,13 @@ namespace SCA.Job
         private IServiceProvider GetConfiguredServiceProvider()
         {
             var services = new ServiceCollection()
-                .AddScoped<IUserJob, UserJob>()
-                .AddScoped<IUserService, UserService>();
+                .AddScoped<IOperacaoJob, OperacaoJob>();
             return services.BuildServiceProvider();
         }
 
         private IJobDetail GetDailyJob()
         {
-            return JobBuilder.Create<IUserJob>()
+            return JobBuilder.Create<IOperacaoJob>()
                 .WithIdentity("dailyjob", "dailygroup")
                 .Build();
         }

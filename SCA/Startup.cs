@@ -18,6 +18,7 @@ using SCA.Repository.Interfaces;
 using SCA.Service.Adapters.Interfaces;
 using SCA.Service.Implementation;
 using SCA.Service.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -36,69 +37,41 @@ namespace SCA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddJsonOptions(options =>
+            try
             {
-                options.JsonSerializerOptions.IgnoreNullValues = true;
-                options.JsonSerializerOptions.WriteIndented = true;
-            });
-            services.AddSingleton<Context>();
-            services.AddControllers();
-            services.AddSwaggerGen(options =>
+
+                services.AddMvc().AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                    options.JsonSerializerOptions.WriteIndented = true;
+                });
+                services.AddSingleton<Context>();
+                services.AddControllers();
+                Utils.Configuration.JwtConfig.AddIdentityConfiguration(services, _configuration);
+                Utils.Configuration.SwaggerConfig.AddSwaggerConfiguration(services, XmlCommentsFilePath, "SCA Gerenciamento de Ativos");
+                RegisterServices(services);
+
+            }
+            catch (Exception ex)
             {
-                options.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo()
-                {
-                    Version = "1.0",
-                    Title = "SCA.API",
-                    Description = "Aplicação SCA",
-                });
-
-                options.AddSecurityDefinition("apiKey", new OpenApiSecurityScheme
-                {
-                    Description = _configuration["keyValue"],
-                    Name = _configuration["keyName"],
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "apiAuth"
-
-                });
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement{
-                    {
-                new OpenApiSecurityScheme
-                {
-                    Reference = new OpenApiReference
-                    {
-                        Type = ReferenceType.SecurityScheme,
-                        Id = "apiKey"
-                    },
-                    Scheme = "apiAuth",
-                    In = ParameterLocation.Header
-                },new List<string>()}});
-
-                options.OperationFilter<AddAntiCsrfHeaderOperationFilter>();
-
-                options.IncludeXmlComments(XmlCommentsFilePath);
-
-                // Define que cada objeto do swagger possua o nome completo para evitar conflitos
-                options.CustomSchemaIds(x => x.FullName);
-            });
-
-            RegisterServices(services);
+                throw ex;
+            }
         }
 
         private void RegisterServices(IServiceCollection services)
         {
             services.AddSingleton(_configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IAntiCSRFService, AntiCSRFService>();
-            services.AddTransient<IRabbitMQ, Service.Adapters.Services.RabbitMQ>();
-            services.AddTransient<IAreaRepository, AreaRepository>();
-            services.AddTransient<IAreaService, AreaService>();
+            services.AddScoped<IAntiCSRFService, AntiCSRFService>();
+            services.AddScoped<IRabbitMQ, Service.Adapters.Services.RabbitMQ>();
+            services.AddScoped<IEquipamentoService, EquipamentoService>();
+            services.AddScoped<IManutencaoService, ManutencaoService>();
+            services.AddScoped<IParadaService, ParadaService>();
 
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddScoped<IEquipamentoRepository, EquipamentoRepository>();
+            services.AddScoped<IManutencaoRepository, ManutencaoRepository>();
+            services.AddScoped<IParadaRepository, ParadaRepository>();
         }
-
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -129,21 +102,12 @@ namespace SCA
                     context.Response.StatusCode = 500;
                     await context.Response.WriteAsync(responseMessage);
                 });
-            });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                string basePath = string.IsNullOrWhiteSpace(options.RoutePrefix) ? "." : "..";
-                options.SwaggerEndpoint($"{basePath}/swagger/v1.0/swagger.json", "SCA API");
-            });
-
-            app.UseMiddleware<AntiCSRFMiddleware>();
-            app.UseMiddleware<KeyIdMiddleware>();
+            });          
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthorization();
+            Utils.Configuration.JwtConfig.UseIdentityConfiguration(app);
+            Utils.Configuration.SwaggerConfig.UseSwaggerConfiguration(app);
             app.UseEndpoints(endpoins =>
             {
                 endpoins.MapControllers();

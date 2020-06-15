@@ -1,0 +1,39 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:54663",
+      "sslPort": 44357
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "RabbitMQHost": "localhost",
+        "RabbitMQPassword": "guest",
+        "keyName": "SCA_Modulo_Controle_Processos",
+        "RabbitMQUserName": "guest",
+        "keyValue": "8PWXRe3djyDa7ttHfG-vQm8epNtyoRMJFEwvK",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "QueueParadas": "SCA_Modulo_Gerenciamento_Ativos_Paradas",
+        "QueueOperacao": "SCA_Modulo_Gerenciamento_Ativos_Operacao",
+        "connectionStringMongo": "mongodb://application:sergio9205@ds337985.mlab.com:37985/heroku_386b1s1k?retryWrites=false",
+        "userMongo": "heroku_386b1s1k"
+      }
+    },
+    "SCA.Modulo.Controle.Processos": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/values",
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

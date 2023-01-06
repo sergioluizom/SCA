@@ -16,7 +16,7 @@
     <PackageReference Include="Serilog.Settings.AppSettings" Version="2.2.2" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
     <PackageReference Include="Serilog.Settings.Xml" Version="1.1.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.4.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
